@@ -6,7 +6,7 @@ import { DISPLAY_GRID_ITEMS, DisplayItem } from '@/lib/products';
 import { useCartStore } from '@/lib/cartStore';
 import CartDrawer from '@/components/CartDrawer';
 import ProductModal from '@/components/ProductModal';
-import { ShoppingBag, Mail, Eye, RotateCw } from 'lucide-react';
+import { ShoppingBag, Mail, Eye } from 'lucide-react';
 
 function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -129,18 +129,14 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* 3D Spinning Showcase Viewport */}
-              <div className="relative aspect-square w-full perspective-1000 flex items-center justify-center p-8 bg-gradient-to-b from-[#181a24] to-[#0e0f14] overflow-hidden">
+              {/* Garment Showcase Viewport (Still Studio View) */}
+              <div className="relative aspect-square w-full flex items-center justify-center p-8 bg-gradient-to-b from-[#181a24] to-[#0e0f14] overflow-hidden">
                 
-                {/* Turntable Pedestal / Ambient glow */}
+                {/* Ambient glow */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06)_0%,transparent_70%)] pointer-events-none" />
                 
-                {/* 3D Rotating Garment Container */}
-                <div 
-                  className={`relative w-4/5 h-4/5 ${
-                    index % 2 === 0 ? 'animate-spin-3d' : 'animate-spin-3d-slow'
-                  } transition-transform duration-500`}
-                >
+                {/* Static Garment Container */}
+                <div className="relative w-4/5 h-4/5 transition-transform duration-300 group-hover:scale-105">
                   <Image
                     src={item.mockup}
                     alt={item.title}
@@ -150,18 +146,12 @@ export default function HomePage() {
                 </div>
 
                 {/* Soft floor shadow */}
-                <div className="absolute bottom-6 w-3/5 h-4 rounded-full bg-black/60 blur-md animate-shadow-pulse pointer-events-none" />
+                <div className="absolute bottom-6 w-3/5 h-4 rounded-full bg-black/60 blur-md pointer-events-none" />
 
                 {/* Hover Quick-View Pill */}
                 <div className="absolute bottom-4 bg-white/90 text-black px-4 py-2 rounded-full font-black text-xs uppercase tracking-widest flex items-center gap-2 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-2xl">
                   <Eye className="w-3.5 h-3.5" />
                   <span>CUSTOMIZE & BUY</span>
-                </div>
-
-                {/* 3D Rotation Badge */}
-                <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm border border-white/10 px-2 py-0.5 rounded text-[9px] font-mono text-zinc-400 flex items-center gap-1 opacity-70 group-hover:opacity-100">
-                  <RotateCw className="w-2.5 h-2.5 animate-spin" style={{ animationDuration: '8s' }} />
-                  <span>360° 3D VIEW</span>
                 </div>
               </div>
 
