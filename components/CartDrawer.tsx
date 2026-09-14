@@ -3,13 +3,16 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useCartStore } from '@/lib/cartStore';
-import { X, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
+import { X, Trash2, ShoppingBag, ArrowRight, Sparkles } from 'lucide-react';
 
 export default function CartDrawer() {
-  const { items, isOpen, closeCart, removeItem, updateQuantity, totalPrice } = useCartStore();
+  const { items, isOpen, closeCart, removeItem, updateQuantity, totalPrice, totalCount } = useCartStore();
   const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
+
+  const count = totalCount();
+  const qualifiesForFreeShipping = count >= 2;
 
   const handleCheckout = async () => {
     try {
@@ -23,7 +26,7 @@ export default function CartDrawer() {
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert(data.error || 'Checkout failed. Please ensure Stripe keys are set in production.');
+        alert(data.error || 'Checkout failed. Please configure your Stripe Keys in Vercel.');
       }
     } catch (err) {
       console.error(err);
@@ -37,7 +40,7 @@ export default function CartDrawer() {
     <div className="fixed inset-0 z-50 flex justify-end">
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity" 
+        className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity" 
         onClick={closeCart} 
       />
 
@@ -48,7 +51,7 @@ export default function CartDrawer() {
             <ShoppingBag className="w-5 h-5 text-white" />
             <h2 className="text-lg font-black uppercase tracking-wider">YOUR CART</h2>
             <span className="text-xs bg-white/10 px-2.5 py-0.5 rounded-full font-mono text-zinc-300">
-              {items.reduce((sum, i) => sum + i.quantity, 0)}
+              {count} {count === 1 ? 'item' : 'items'}
             </span>
           </div>
           <button 
@@ -57,6 +60,20 @@ export default function CartDrawer() {
           >
             <X className="w-5 h-5" />
           </button>
+        </div>
+
+        {/* Free Shipping Banner */}
+        <div className="px-6 py-3 bg-white/5 border-b border-white/10 text-xs flex items-center justify-between">
+          {qualifiesForFreeShipping ? (
+            <div className="flex items-center gap-2 text-emerald-400 font-bold">
+              <Sparkles className="w-4 h-4" />
+              <span>FREE US SHIPPING UNLOCKED (2+ Items)</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 text-zinc-400">
+              <span>Add <strong>{2 - count} more item</strong> for <strong>FREE US Shipping</strong></span>
+            </div>
+          )}
         </div>
 
         {/* Item List */}
@@ -81,9 +98,9 @@ export default function CartDrawer() {
                   />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-black text-sm uppercase tracking-wide truncate">{item.name}</h3>
-                  <p className="text-xs text-zinc-400 capitalize">{item.colorwayName} • Size {item.size}</p>
-                  <p className="text-sm font-bold mt-1 text-white">${item.price}</p>
+                  <h3 className="font-black text-xs uppercase tracking-wide truncate">{item.name}</h3>
+                  <p className="text-[11px] text-zinc-400 capitalize">{item.colorwayName} • Size {item.size}</p>
+                  <p className="text-sm font-bold mt-1 text-white">${item.price.toFixed(2)}</p>
                   
                   <div className="flex items-center gap-3 mt-2">
                     <div className="flex items-center border border-white/20 rounded">
@@ -113,11 +130,17 @@ export default function CartDrawer() {
         {/* Footer / Checkout */}
         {items.length > 0 && (
           <div className="p-6 border-t border-white/10 bg-black/40 space-y-4">
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-zinc-400 uppercase tracking-widest text-xs">Subtotal</span>
-              <span className="text-xl font-black">${totalPrice().toFixed(2)}</span>
+            <div className="space-y-1">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-zinc-400 uppercase tracking-widest text-xs">Subtotal</span>
+                <span className="text-xl font-black">${totalPrice().toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between items-center text-xs text-zinc-400">
+                <span>Shipping</span>
+                <span>{qualifiesForFreeShipping ? <strong className="text-emerald-400 uppercase">FREE</strong> : '$5.00'}</span>
+              </div>
             </div>
-            <p className="text-[11px] text-zinc-400">Taxes and standard shipping calculated at checkout via Stripe.</p>
+
             <button
               onClick={handleCheckout}
               disabled={loading}
