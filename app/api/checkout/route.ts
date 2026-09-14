@@ -8,9 +8,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Stripe secret key not configured in environment variables' }, { status: 500 });
     }
 
-    const stripe = new Stripe(stripeKey, {
-      apiVersion: '2026-02-04' as any,
-    });
+    const stripe = new Stripe(stripeKey);
 
     const body = await req.json();
     const { items } = body;
