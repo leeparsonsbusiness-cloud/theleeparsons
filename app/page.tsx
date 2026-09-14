@@ -6,7 +6,7 @@ import { DISPLAY_GRID_ITEMS, DisplayItem } from '@/lib/products';
 import { useCartStore } from '@/lib/cartStore';
 import CartDrawer from '@/components/CartDrawer';
 import ProductModal from '@/components/ProductModal';
-import { ShoppingBag, Mail, Sparkles, Eye, RotateCw } from 'lucide-react';
+import { ShoppingBag, Mail, Eye, RotateCw } from 'lucide-react';
 
 function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -28,7 +28,6 @@ function YoutubeIcon({ className = "w-4 h-4" }: { className?: string }) {
 }
 
 export default function HomePage() {
-  const [filterType, setFilterType] = useState<'all' | 'tee' | 'hoodie'>('all');
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
@@ -40,10 +39,6 @@ export default function HomePage() {
     setSelectedColorIndex(item.colorwayIndex);
     setModalOpen(true);
   };
-
-  const filteredItems = filterType === 'all' 
-    ? DISPLAY_GRID_ITEMS 
-    : DISPLAY_GRID_ITEMS.filter(item => item.productType === filterType);
 
   return (
     <div className="min-h-screen bg-[#090a0d] text-white selection:bg-white selection:text-black">
@@ -57,10 +52,10 @@ export default function HomePage() {
         initialColorwayIndex={selectedColorIndex}
       />
 
-      {/* Top Banner Marquee */}
+      {/* Top Banner: Free shipping promo ONLY */}
       <div className="bg-white text-black font-black text-xs md:text-sm uppercase tracking-[0.2em] py-2 overflow-hidden whitespace-nowrap border-b border-black">
         <div className="inline-block animate-marquee">
-          <span>SHOUTOUT TO THE GAYS FOR LEAVING MORE CHICKS FOR ME • LIMITED EDITION DROP • HEAVYWEIGHT STREETWEAR • FREE US SHIPPING ON 2+ ITEMS • THE LEE PARSONS • SHOUTOUT TO THE GAYS FOR LEAVING MORE CHICKS FOR ME • </span>
+          <span>FREE SHIPPING WHEN YOU BUY 2 OR MORE ITEMS • FREE SHIPPING WHEN YOU BUY 2 OR MORE ITEMS • FREE SHIPPING WHEN YOU BUY 2 OR MORE ITEMS • FREE SHIPPING WHEN YOU BUY 2 OR MORE ITEMS • </span>
         </div>
       </div>
 
@@ -68,7 +63,6 @@ export default function HomePage() {
       <header className="sticky top-0 z-40 bg-[#090a0d]/95 backdrop-blur-md border-b border-white/10 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <span className="font-black text-lg md:text-xl tracking-tighter uppercase">THE LEE PARSONS</span>
-          <span className="hidden sm:inline-block text-[10px] bg-white/10 text-zinc-400 px-2 py-0.5 rounded font-mono uppercase">EST. 2026</span>
         </div>
 
         {/* Socials & Cart */}
@@ -112,58 +106,10 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Hero Header */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 pt-12 pb-6 text-center">
-        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full text-xs font-mono text-zinc-400 uppercase tracking-widest mb-4">
-          <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-          <span>DROP 01 // 3D STREETWEAR COLLECTION</span>
-        </div>
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tight text-white">
-          THE STATEMENT DROP
-        </h1>
-        <p className="max-w-xl mx-auto text-zinc-400 text-xs sm:text-sm uppercase tracking-widest font-mono mt-3">
-          "SHOUTOUT TO THE GAYS FOR LEAVING MORE CHICKS FOR ME"
-        </p>
-
-        {/* Filter Pills */}
-        <div className="flex justify-center items-center gap-2 mt-8">
-          <button
-            onClick={() => setFilterType('all')}
-            className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
-              filterType === 'all'
-                ? 'bg-white text-black shadow-lg'
-                : 'bg-white/5 text-zinc-400 border border-white/10 hover:border-white/30 hover:text-white'
-            }`}
-          >
-            ALL ITEMS ({DISPLAY_GRID_ITEMS.length})
-          </button>
-          <button
-            onClick={() => setFilterType('tee')}
-            className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
-              filterType === 'tee'
-                ? 'bg-white text-black shadow-lg'
-                : 'bg-white/5 text-zinc-400 border border-white/10 hover:border-white/30 hover:text-white'
-            }`}
-          >
-            T-SHIRTS ($27.99)
-          </button>
-          <button
-            onClick={() => setFilterType('hoodie')}
-            className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
-              filterType === 'hoodie'
-                ? 'bg-white text-black shadow-lg'
-                : 'bg-white/5 text-zinc-400 border border-white/10 hover:border-white/30 hover:text-white'
-            }`}
-          >
-            HOODIES ($49.99)
-          </button>
-        </div>
-      </section>
-
       {/* 3D Multi-Box Interactive Showcase Grid */}
-      <main className="max-w-7xl mx-auto px-4 md:px-8 py-8" id="shop">
+      <main className="max-w-7xl mx-auto px-4 md:px-8 pt-8 pb-16" id="shop">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {filteredItems.map((item, index) => (
+          {DISPLAY_GRID_ITEMS.map((item, index) => (
             <div
               key={item.id}
               onClick={() => handleOpenProduct(item)}
@@ -236,40 +182,67 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* Nightlife Campaign Banner (3 AM Diner Photo) */}
-        <section className="mt-20 rounded-3xl overflow-hidden border border-white/10 relative bg-gradient-to-r from-black via-zinc-900 to-black">
-          <div className="grid grid-cols-1 md:grid-cols-12 items-center">
-            <div className="md:col-span-6 p-8 md:p-14 space-y-5">
-              <span className="text-xs font-mono uppercase tracking-[0.3em] text-zinc-400">03:00 AM DINER RUN</span>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-tight">
-                BUILT FOR AFTER-HOURS
-              </h2>
-              <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed">
-                Reckless, direct-flash late night merch. Heavyweight 7.5 oz shirts and 10.0 oz hoodies direct-to-garment printed on vintage mineral wash blanks.
-              </p>
-              <button
-                onClick={() => handleOpenProduct(DISPLAY_GRID_ITEMS[0])}
-                className="px-8 py-3.5 bg-white text-black font-black uppercase tracking-widest text-xs hover:bg-zinc-200 transition-all rounded inline-flex items-center gap-2"
-              >
-                <span>SHOP THE DROP</span>
-              </button>
+        {/* LOOKBOOK Section */}
+        <section className="mt-24 border-t border-white/10 pt-16" id="lookbook">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs uppercase tracking-[0.3em] text-zinc-400 font-mono">ARCHIVE // LATE NIGHT</span>
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mt-1">LOOKBOOK</h2>
+            <p className="text-zinc-400 text-xs sm:text-sm mt-3 leading-relaxed font-mono uppercase">
+              03:00 AM DINER RUN • DIRECT-FLASH NIGHTLIFE MERCH
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 group shadow-xl">
+              <Image 
+                src="/lifestyle/candid-diner.jpg" 
+                alt="Late Night Diner" 
+                fill 
+                className="object-cover group-hover:scale-105 transition-transform duration-500" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
+                <div>
+                  <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">03:00 AM DINER RUN</span>
+                  <h3 className="font-black text-lg uppercase tracking-tight">AFTER-HOURS</h3>
+                </div>
+              </div>
             </div>
 
-            <div className="md:col-span-6 relative h-80 md:h-[420px] w-full">
-              <Image
-                src="/lifestyle/candid-diner.jpg"
-                alt="Direct Flash Diner Candid"
-                fill
-                className="object-cover"
+            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 group shadow-xl">
+              <Image 
+                src="/lifestyle/fitgrid-charcoal.jpg" 
+                alt="Fit Grid" 
+                fill 
+                className="object-cover group-hover:scale-105 transition-transform duration-500" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
+                <div>
+                  <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">OUTFIT ESSENTIALS</span>
+                  <h3 className="font-black text-lg uppercase tracking-tight">WASHED CHARCOAL</h3>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 group shadow-xl">
+              <Image 
+                src="/lifestyle/flatlay-white.jpg" 
+                alt="Vintage White Flatlay" 
+                fill 
+                className="object-cover group-hover:scale-105 transition-transform duration-500" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
+                <div>
+                  <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">UNBLEACHED ECRU</span>
+                  <h3 className="font-black text-lg uppercase tracking-tight">VINTAGE COTTON DRAPE</h3>
+                </div>
+              </div>
             </div>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 bg-black/70 py-12 px-6 text-center text-xs text-zinc-500 space-y-4 mt-20">
+      <footer className="border-t border-white/10 bg-black/70 py-12 px-6 text-center text-xs text-zinc-500 space-y-4">
         <div className="flex justify-center items-center gap-6 text-zinc-400 text-xs font-mono">
           <a href="https://instagram.com/theleeparsons" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">INSTAGRAM</a>
           <span>•</span>
@@ -278,9 +251,6 @@ export default function HomePage() {
           <a href="mailto:leeparsonsbusiness@gmail.com" className="hover:text-white transition-colors">SUPPORT</a>
         </div>
         <p className="font-black tracking-widest text-zinc-400 uppercase">THE LEE PARSONS • ALL RIGHTS RESERVED • theleeparsons.com</p>
-        <p className="max-w-md mx-auto text-[11px] leading-relaxed text-zinc-600">
-          Independent limited-run streetwear. Direct-to-garment printed and fulfilled by Printful on premium heavyweight blanks. Powered by Stripe.
-        </p>
       </footer>
     </div>
   );
