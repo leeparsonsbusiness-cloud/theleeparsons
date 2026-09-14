@@ -13,7 +13,7 @@ export default function HomePage() {
       {/* Top Banner */}
       <div className="bg-white text-black font-black text-xs md:text-sm uppercase tracking-[0.2em] py-2 overflow-hidden whitespace-nowrap border-b border-black">
         <div className="inline-block animate-marquee">
-          <span>FREE SHIPPING WHEN YOU BUY 2 OR MORE ITEMS • THE STATEMENT DROP IS LIVE • DIRECTING & CREATIVE ARCHIVES • </span>
+          <span>FREE SHIPPING WHEN YOU BUY 2 OR MORE ITEMS • SEPTEMBER DROP IS LIVE • DIRECTING & CREATIVE ARCHIVES • </span>
         </div>
       </div>
 
@@ -81,7 +81,7 @@ export default function HomePage() {
           <div>
             <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">OFFICIAL MERCHANDISE</span>
             <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mt-1 text-white">
-              THE STATEMENT DROP
+              SEPTEMBER DROP
             </h2>
           </div>
           <Link
@@ -162,20 +162,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Portal Section 2: FILMS & VISUALS */}
+      {/* Portal Section 2: MY VIDEOS */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 py-20 border-t border-white/10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
             <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">CINEMA & DIRECTING</span>
             <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mt-1 text-white">
-              FILMS & VISUALS
+              MY VIDEOS
             </h2>
           </div>
           <Link
             href="/films"
             className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-zinc-300 hover:text-white transition-colors group"
           >
-            <span>EXPLORE FILM ARCHIVE</span>
+            <span>EXPLORE ALL VIDEOS</span>
             <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -211,8 +211,8 @@ export default function HomePage() {
       <section className="border-t border-white/10 bg-[#06070a] py-24 px-6">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <span className="text-xs uppercase font-mono tracking-[0.4em] text-zinc-500">THE PHILOSOPHY</span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white leading-tight">
-            "CREATING ART, FILMS, AND PIECES THAT SPEAK SO LOUD YOU CAN’T IGNORE THEM."
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-white leading-relaxed">
+            "THE REASONABLE MAN ADAPTS HIMSELF TO THE WORLD, THE UNREASONABLE MAN ADAPTS THE WORLD TO HIMSELF. THEREFORE ALL PROGRESS DEPENDS ON THE UNREASONABLE MAN."
           </h2>
           <div className="flex justify-center items-center gap-4 pt-4">
             <Link
