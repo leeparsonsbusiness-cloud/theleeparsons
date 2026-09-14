@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import IntroAnimation from '@/components/IntroAnimation';
 import { ArrowRight, Play, ShoppingBag, Film, Mail, Sparkles, ChevronDown } from 'lucide-react';
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#090a0d] text-white selection:bg-white selection:text-black">
+      <IntroAnimation />
       
       {/* Top Banner */}
       <div className="bg-white text-black font-black text-xs md:text-sm uppercase tracking-[0.2em] py-2 overflow-hidden whitespace-nowrap border-b border-black">
