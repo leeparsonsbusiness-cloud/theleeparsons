@@ -80,7 +80,7 @@ export const PRODUCTS: Product[] = [
         colorName: 'Garment-Dyed Pine',
         hex: '#334839',
         mockup: '/mockups/forest-green.png',
-        lifestyle: '/lifestyle/macro-green.jpg',
+        lifestyle: '/mockups/forest-green.png',
         textColor: 'white'
       }
     ]
@@ -128,7 +128,7 @@ export const PRODUCTS: Product[] = [
         colorName: 'Garment-Dyed Pine',
         hex: '#334839',
         mockup: '/mockups/hoodie-forest-green.png',
-        lifestyle: '/lifestyle/macro-green.jpg',
+        lifestyle: '/mockups/hoodie-forest-green.png',
         textColor: 'white'
       }
     ]

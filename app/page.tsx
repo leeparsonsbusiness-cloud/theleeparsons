@@ -182,58 +182,40 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* LOOKBOOK Section */}
+        {/* LOOKBOOK Section (Clean dual-panel flatlay feature) */}
         <section className="mt-24 border-t border-white/10 pt-16" id="lookbook">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs uppercase tracking-[0.3em] text-zinc-400 font-mono">ARCHIVE // LATE NIGHT</span>
+            <span className="text-xs uppercase tracking-[0.3em] text-zinc-400 font-mono">ARCHIVE // GALLERY</span>
             <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mt-1">LOOKBOOK</h2>
-            <p className="text-zinc-400 text-xs sm:text-sm mt-3 leading-relaxed font-mono uppercase">
-              03:00 AM DINER RUN • DIRECT-FLASH NIGHTLIFE MERCH
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 group shadow-xl">
-              <Image 
-                src="/lifestyle/candid-diner.jpg" 
-                alt="Late Night Diner" 
-                fill 
-                className="object-cover group-hover:scale-105 transition-transform duration-500" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
-                <div>
-                  <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">03:00 AM DINER RUN</span>
-                  <h3 className="font-black text-lg uppercase tracking-tight">AFTER-HOURS</h3>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 group shadow-xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 group shadow-2xl">
               <Image 
                 src="/lifestyle/fitgrid-charcoal.jpg" 
-                alt="Fit Grid" 
+                alt="Washed Charcoal Fit-Grid" 
                 fill 
                 className="object-cover group-hover:scale-105 transition-transform duration-500" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
                 <div>
                   <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">OUTFIT ESSENTIALS</span>
-                  <h3 className="font-black text-lg uppercase tracking-tight">WASHED CHARCOAL</h3>
+                  <h3 className="font-black text-xl uppercase tracking-tight text-white">WASHED CHARCOAL</h3>
                 </div>
               </div>
             </div>
 
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 group shadow-xl">
+            <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 group shadow-2xl">
               <Image 
                 src="/lifestyle/flatlay-white.jpg" 
                 alt="Vintage White Flatlay" 
                 fill 
                 className="object-cover group-hover:scale-105 transition-transform duration-500" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
                 <div>
                   <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">UNBLEACHED ECRU</span>
-                  <h3 className="font-black text-lg uppercase tracking-tight">VINTAGE COTTON DRAPE</h3>
+                  <h3 className="font-black text-xl uppercase tracking-tight text-white">VINTAGE COTTON DRAPE</h3>
                 </div>
               </div>
             </div>

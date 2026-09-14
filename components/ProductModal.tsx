@@ -111,37 +111,29 @@ export default function ProductModal({
                 </div>
               </div>
 
-              {/* Thumbnails */}
-              <div className="grid grid-cols-4 gap-2.5">
+              {/* View Switcher: Studio vs Lifestyle Look */}
+              <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => setActiveTab('mockup')}
-                  className={`relative aspect-square rounded-lg border overflow-hidden transition-all bg-black/40 ${
-                    activeTab === 'mockup' ? 'border-white ring-2 ring-white/30' : 'border-white/10 opacity-70 hover:opacity-100'
+                  className={`py-3 px-4 rounded-xl border font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
+                    activeTab === 'mockup' 
+                      ? 'bg-white text-black border-white shadow-md' 
+                      : 'bg-white/5 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
                   }`}
                 >
-                  <Image src={currentColor.mockup} alt="Studio Mockup" fill className="object-contain p-1" />
-                  <span className="absolute bottom-1 right-1 text-[8px] bg-black/80 px-1 rounded font-mono">STUDIO</span>
+                  <span>STUDIO SHOT</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTab('lifestyle')}
-                  className={`relative aspect-square rounded-lg border overflow-hidden transition-all bg-black/40 ${
-                    activeTab === 'lifestyle' ? 'border-white ring-2 ring-white/30' : 'border-white/10 opacity-70 hover:opacity-100'
+                  className={`py-3 px-4 rounded-xl border font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
+                    activeTab === 'lifestyle' 
+                      ? 'bg-white text-black border-white shadow-md' 
+                      : 'bg-white/5 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
                   }`}
                 >
-                  <Image src={currentColor.lifestyle} alt="Lifestyle" fill className="object-cover" />
-                  <span className="absolute bottom-1 right-1 text-[8px] bg-black/80 px-1 rounded font-mono">LOOK</span>
+                  <span>FLATLAY VIEW</span>
                 </button>
-
-                <div className="relative aspect-square rounded-lg border border-white/10 overflow-hidden bg-black/40">
-                  <Image src="/lifestyle/candid-diner.jpg" alt="Diner" fill className="object-cover" />
-                  <span className="absolute bottom-1 right-1 text-[8px] bg-black/80 px-1 rounded font-mono">NIGHT</span>
-                </div>
-
-                <div className="relative aspect-square rounded-lg border border-white/10 overflow-hidden bg-black/40">
-                  <Image src="/lifestyle/macro-green.jpg" alt="Macro Texture" fill className="object-cover" />
-                  <span className="absolute bottom-1 right-1 text-[8px] bg-black/80 px-1 rounded font-mono">DETAIL</span>
-                </div>
               </div>
             </div>
 
