@@ -22,6 +22,20 @@ export interface Product {
   colorways: Colorway[];
 }
 
+export interface DisplayItem {
+  id: string;
+  productType: 'tee' | 'hoodie';
+  productIndex: number;
+  colorwayIndex: number;
+  title: string;
+  subtitle: string;
+  price: number;
+  mockup: string;
+  colorHex: string;
+  colorName: string;
+  badge: string;
+}
+
 export const PRODUCTS: Product[] = [
   {
     id: 'shoutout-tee',
@@ -65,7 +79,7 @@ export const PRODUCTS: Product[] = [
         name: 'Faded Forest',
         colorName: 'Garment-Dyed Pine',
         hex: '#334839',
-        mockup: '/lifestyle/macro-green.jpg',
+        mockup: '/mockups/forest-green.png',
         lifestyle: '/lifestyle/macro-green.jpg',
         textColor: 'white'
       }
@@ -96,7 +110,7 @@ export const PRODUCTS: Product[] = [
         colorName: 'Vintage Faded Black',
         hex: '#2b2c30',
         mockup: '/mockups/hoodie-charcoal.png',
-        lifestyle: '/mockups/hoodie-charcoal.png',
+        lifestyle: '/lifestyle/fitgrid-charcoal.jpg',
         textColor: 'white'
       },
       {
@@ -105,7 +119,7 @@ export const PRODUCTS: Product[] = [
         colorName: 'Unbleached Ecru',
         hex: '#e2ddcc',
         mockup: '/mockups/hoodie-vintage-white.png',
-        lifestyle: '/mockups/hoodie-vintage-white.png',
+        lifestyle: '/lifestyle/flatlay-white.jpg',
         textColor: 'black'
       },
       {
@@ -113,10 +127,91 @@ export const PRODUCTS: Product[] = [
         name: 'Faded Forest',
         colorName: 'Garment-Dyed Pine',
         hex: '#334839',
-        mockup: '/lifestyle/macro-green.jpg',
+        mockup: '/mockups/hoodie-forest-green.png',
         lifestyle: '/lifestyle/macro-green.jpg',
         textColor: 'white'
       }
     ]
+  }
+];
+
+export const DISPLAY_GRID_ITEMS: DisplayItem[] = [
+  {
+    id: 'tee-charcoal',
+    productType: 'tee',
+    productIndex: 0,
+    colorwayIndex: 0,
+    title: 'SHOUTOUT TEE',
+    subtitle: 'Washed Charcoal (Faded Black)',
+    price: 27.99,
+    mockup: '/mockups/washed-charcoal.png',
+    colorHex: '#2b2c30',
+    colorName: 'Washed Charcoal',
+    badge: '7.5 OZ HEAVYWEIGHT'
+  },
+  {
+    id: 'tee-bone',
+    productType: 'tee',
+    productIndex: 0,
+    colorwayIndex: 1,
+    title: 'SHOUTOUT TEE',
+    subtitle: 'Vintage Bone (Unbleached Ecru)',
+    price: 27.99,
+    mockup: '/mockups/vintage-white.png',
+    colorHex: '#e2ddcc',
+    colorName: 'Vintage Bone',
+    badge: '7.5 OZ HEAVYWEIGHT'
+  },
+  {
+    id: 'tee-forest',
+    productType: 'tee',
+    productIndex: 0,
+    colorwayIndex: 2,
+    title: 'SHOUTOUT TEE',
+    subtitle: 'Faded Forest (Garment-Dyed Pine)',
+    price: 27.99,
+    mockup: '/mockups/forest-green.png',
+    colorHex: '#334839',
+    colorName: 'Faded Forest',
+    badge: '7.5 OZ HEAVYWEIGHT'
+  },
+  {
+    id: 'hoodie-charcoal',
+    productType: 'hoodie',
+    productIndex: 1,
+    colorwayIndex: 0,
+    title: 'SHOUTOUT HOODIE',
+    subtitle: 'Washed Charcoal Pullover',
+    price: 49.99,
+    mockup: '/mockups/hoodie-charcoal.png',
+    colorHex: '#2b2c30',
+    colorName: 'Washed Charcoal',
+    badge: '10.0 OZ FLEECE'
+  },
+  {
+    id: 'hoodie-bone',
+    productType: 'hoodie',
+    productIndex: 1,
+    colorwayIndex: 1,
+    title: 'SHOUTOUT HOODIE',
+    subtitle: 'Vintage Bone Pullover',
+    price: 49.99,
+    mockup: '/mockups/hoodie-vintage-white.png',
+    colorHex: '#e2ddcc',
+    colorName: 'Vintage Bone',
+    badge: '10.0 OZ FLEECE'
+  },
+  {
+    id: 'hoodie-forest',
+    productType: 'hoodie',
+    productIndex: 1,
+    colorwayIndex: 2,
+    title: 'SHOUTOUT HOODIE',
+    subtitle: 'Faded Forest Pullover',
+    price: 49.99,
+    mockup: '/mockups/hoodie-forest-green.png',
+    colorHex: '#334839',
+    colorName: 'Faded Forest',
+    badge: '10.0 OZ FLEECE'
   }
 ];
