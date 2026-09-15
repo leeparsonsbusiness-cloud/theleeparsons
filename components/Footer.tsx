@@ -68,7 +68,7 @@ export default function Footer() {
         {/* Tagline & Copyright */}
         <div className="space-y-2 border-t border-white/5 pt-8 w-full max-w-md">
           <p className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
-            Creative Living • Streetwear
+            Creative Living
           </p>
           <p className="text-[11px] text-zinc-600 font-mono">
             © {new Date().getFullYear()} THE LEE PARSONS. ALL RIGHTS RESERVED.
