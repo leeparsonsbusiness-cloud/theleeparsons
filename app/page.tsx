@@ -201,25 +201,6 @@ export default function HomePage() {
           </div>
         </Link>
       </section>
-
-      {/* About & Statement Banner */}
-      <section className="border-t border-white/10 bg-[#06070a] py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          <span className="text-xs uppercase font-mono tracking-[0.4em] text-zinc-500">THE PHILOSOPHY</span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-white leading-relaxed">
-            "THE REASONABLE MAN ADAPTS HIMSELF TO THE WORLD, THE UNREASONABLE MAN ADAPTS THE WORLD TO HIMSELF. THEREFORE ALL PROGRESS DEPENDS ON THE UNREASONABLE MAN."
-          </h2>
-          <div className="flex justify-center items-center gap-4 pt-4">
-            <Link
-              href="/contact"
-              className="px-8 py-4 rounded-full bg-white text-black font-black text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all"
-            >
-              GET IN TOUCH
-            </Link>
-          </div>
-        </div>
-      </section>
-
     </div>
   );
 }
