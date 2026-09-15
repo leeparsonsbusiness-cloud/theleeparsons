@@ -75,7 +75,7 @@ export async function POST(req: Request) {
       },
       shipping_options,
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/#shop`,
+      cancel_url: `${origin}/`,
       metadata: {
         orderSource: 'theleeparsons.com',
         promoApplied: isFreeShipping ? 'FREE_SHIPPING_2_PLUS' : 'NONE',

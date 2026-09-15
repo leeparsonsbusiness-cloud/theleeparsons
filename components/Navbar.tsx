@@ -41,15 +41,16 @@ export default function Navbar() {
     { href: '/', label: 'Home' },
     { href: '/clothing', label: 'Clothing' },
     { href: '/films', label: 'Films' },
+    { href: '/music', label: 'Music' },
     { href: '/contact', label: 'Contact' },
   ];
 
   return (
     <header className="sticky top-0 z-40 bg-[#090a0d]/90 backdrop-blur-xl border-b border-white/10 px-4 md:px-8 py-3.5 flex items-center justify-between transition-all">
       
-      {/* Left: Brand / Logo */}
-      <Link href="/" className="flex items-center gap-3 group">
-        <div className="relative w-7 h-7 flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+      {/* Left: Clean Brand Logo */}
+      <Link href="/" className="flex items-center group py-1" title="The Lee Parsons">
+        <div className="relative w-8 h-8 md:w-9 md:h-9 flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
           <Image
             src="/logo-white.png"
             alt="The Lee Parsons"
@@ -57,9 +58,6 @@ export default function Navbar() {
             className="object-contain"
           />
         </div>
-        <span className="font-black text-sm md:text-base tracking-tighter uppercase text-white group-hover:text-zinc-300 transition-colors">
-          THE LEE PARSONS
-        </span>
       </Link>
 
       {/* Center: Navigation Links */}

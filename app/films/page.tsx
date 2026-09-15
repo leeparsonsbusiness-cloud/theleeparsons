@@ -17,11 +17,11 @@ interface FilmProject {
 
 const FEATURED_FILM: FilmProject = {
   id: 'featured-1',
-  title: 'CREATIVE LIVING — DIRECTORS REEL',
-  category: 'Short Film / Visual Direction',
+  title: 'CREATIVE LIVING — VIDEO REEL',
+  category: 'Short Film / Visuals',
   year: '2026',
   duration: '3:45',
-  description: 'An exploration of streetwear, cinematography, and raw self-expression. Directed, shot, and edited by Lee Parsons.',
+  description: 'An exploration of streetwear, visuals, and raw self-expression.',
   youtubeId: '', // Placeholder: add YouTube Video ID here e.g. "dQw4w9WgXcQ"
   thumbnailGradient: 'from-zinc-800 via-[#13141a] to-black',
 };
@@ -33,7 +33,7 @@ const FILM_PROJECTS: FilmProject[] = [
     category: 'Commercial / Fashion Film',
     year: '2026',
     duration: '1:30',
-    description: 'Cinematic brand film showcasing the 7.5 oz heavyweight boxy tee and 10 oz fleece hoodie across urban environments.',
+    description: 'Brand visual showcasing the 7.5 oz heavyweight boxy tee and 10 oz fleece hoodie across urban environments.',
     youtubeId: '',
     thumbnailGradient: 'from-amber-950/40 via-[#17151f] to-black',
   },
@@ -120,7 +120,6 @@ export default function FilmsPage() {
       <section className="max-w-7xl mx-auto px-4 md:px-8 pt-12 pb-8">
         <div className="border-b border-white/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">CINEMATOGRAPHY & VISUAL STORYTELLING</span>
             <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight mt-1 text-white">
               FILMS
             </h1>
@@ -224,20 +223,19 @@ export default function FilmsPage() {
           ))}
         </div>
 
-        {/* Inquire / Directing CTA */}
+        {/* Contact CTA */}
         <div className="mt-20 p-8 md:p-12 rounded-2xl border border-white/15 bg-gradient-to-r from-[#12141c] to-[#0a0b10] flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div className="space-y-1">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400">COMMERCIAL & DIRECTING INQUIRIES</span>
-            <h4 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">HAVE A PROJECT IN MIND?</h4>
+            <h4 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white">GET IN TOUCH</h4>
             <p className="text-xs md:text-sm text-zinc-400 max-w-xl">
-              Available for visual direction, commercial brand films, and creative storytelling.
+              For collaborations, videos, or creative projects.
             </p>
           </div>
           <Link
             href="/contact"
             className="px-8 py-4 rounded-full bg-white text-black font-black text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all flex-shrink-0"
           >
-            START A CONVERSATION
+            CONTACT
           </Link>
         </div>
       </section>

@@ -23,6 +23,7 @@ export default function Footer() {
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <Link href="/clothing" className="hover:text-white transition-colors">Clothing</Link>
           <Link href="/films" className="hover:text-white transition-colors">Films</Link>
+          <Link href="/music" className="hover:text-white transition-colors">Music</Link>
           <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
         </div>
 
@@ -67,7 +68,7 @@ export default function Footer() {
         {/* Tagline & Copyright */}
         <div className="space-y-2 border-t border-white/5 pt-8 w-full max-w-md">
           <p className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
-            Creative Living • Directing • Streetwear
+            Creative Living • Streetwear
           </p>
           <p className="text-[11px] text-zinc-600 font-mono">
             © {new Date().getFullYear()} THE LEE PARSONS. ALL RIGHTS RESERVED.

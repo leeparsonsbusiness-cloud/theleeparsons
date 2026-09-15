@@ -39,7 +39,6 @@ export default function ClothingPage() {
       <section className="max-w-7xl mx-auto px-4 md:px-8 pt-12 pb-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-8 gap-4">
           <div>
-            <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">OFFICIAL MERCHANDISE & GARMENTS</span>
             <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight mt-1 text-white">
               CLOTHING
             </h1>

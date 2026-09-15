@@ -90,14 +90,6 @@ export default function IntroAnimation() {
 
       </div>
 
-      {/* Subtle Skip button */}
-      <button
-        onClick={handleSkip}
-        className="absolute bottom-8 right-8 text-[11px] font-mono uppercase tracking-widest text-zinc-500 hover:text-white px-3 py-1 rounded-full border border-white/10 hover:border-white/30 bg-white/5 transition-all z-20"
-      >
-        SKIP INTRO ➔
-      </button>
-
     </div>
   );
 }

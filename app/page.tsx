@@ -13,7 +13,7 @@ export default function HomePage() {
       {/* Top Banner */}
       <div className="bg-white text-black font-black text-xs md:text-sm uppercase tracking-[0.2em] py-2 overflow-hidden whitespace-nowrap border-b border-black">
         <div className="inline-block animate-marquee">
-          <span>FREE SHIPPING WHEN YOU BUY 2 OR MORE ITEMS • SEPTEMBER DROP IS LIVE • DIRECTING & CREATIVE ARCHIVES • </span>
+          <span>FREE SHIPPING WHEN YOU BUY 2 OR MORE ITEMS • SEPTEMBER DROP IS LIVE • CREATIVE LIVING • </span>
         </div>
       </div>
 
@@ -42,9 +42,6 @@ export default function HomePage() {
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-white">
               CREATIVE LIVING
             </h1>
-            <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.3em] text-zinc-400">
-              DIRECTING • STREETWEAR • STORYTELLING
-            </p>
           </div>
 
           {/* Primary Action Buttons */}
@@ -79,8 +76,7 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 md:px-8 py-20 border-t border-white/10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
-            <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">OFFICIAL MERCHANDISE</span>
-            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mt-1 text-white">
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white">
               SEPTEMBER DROP
             </h2>
           </div>
@@ -166,8 +162,7 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 md:px-8 py-20 border-t border-white/10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
-            <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">CINEMA & DIRECTING</span>
-            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mt-1 text-white">
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white">
               MY VIDEOS
             </h2>
           </div>
@@ -195,13 +190,13 @@ export default function HomePage() {
 
           <div className="relative z-10 space-y-2 max-w-xl">
             <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 bg-white/10 px-3 py-1 rounded-full border border-white/15">
-              DIRECTORS SHOWREEL
+              FEATURED VIDEO
             </span>
             <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight text-white group-hover:text-zinc-200">
               CREATIVE LIVING // REEL 2026
             </h3>
             <p className="text-xs md:text-sm text-zinc-300">
-              Short films, brand commercials, and documentary visual storytelling.
+              Visual projects and creative video archives.
             </p>
           </div>
         </Link>
@@ -219,7 +214,7 @@ export default function HomePage() {
               href="/contact"
               className="px-8 py-4 rounded-full bg-white text-black font-black text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all"
             >
-              GET IN TOUCH / INQUIRE
+              GET IN TOUCH
             </Link>
           </div>
         </div>

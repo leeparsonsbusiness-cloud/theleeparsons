@@ -9,18 +9,17 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    inquiryType: 'Directing / Film Project',
+    inquiryType: 'General / Collaboration',
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Open mail client or record inquiry
     const mailtoUrl = `mailto:leeparsonsbusiness@gmail.com?subject=${encodeURIComponent(
-      `[${formData.inquiryType}] Inquiries from ${formData.name}`
+      `[${formData.inquiryType}] Message from ${formData.name}`
     )}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nInquiry Type: ${formData.inquiryType}\n\nMessage:\n${formData.message}`
+      `Name: ${formData.name}\nEmail: ${formData.email}\nSubject: ${formData.inquiryType}\n\nMessage:\n${formData.message}`
     )}`;
     window.location.href = mailtoUrl;
     setSubmitted(true);
@@ -32,7 +31,6 @@ export default function ContactPage() {
       {/* Header */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 pt-12 pb-8">
         <div className="border-b border-white/10 pb-8">
-          <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">INQUIRIES & COLLABORATIONS</span>
           <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight mt-1 text-white">
             CONTACT
           </h1>
@@ -56,7 +54,7 @@ export default function ContactPage() {
                 <h3 className="text-xl font-black uppercase text-white mt-0.5">BUSINESS & PRESS</h3>
               </div>
               <p className="text-xs text-zinc-400 leading-relaxed">
-                For commercial directing, clothing inquiries, press, and brand partnerships:
+                For clothing orders, collaborations, and press:
               </p>
               <a
                 href="mailto:leeparsonsbusiness@gmail.com"
@@ -124,12 +122,11 @@ export default function ContactPage() {
 
           </div>
 
-          {/* Right Column: Inquiry Form */}
+          {/* Right Column: Message Form */}
           <div className="lg:col-span-7">
             <div className="p-8 md:p-10 rounded-2xl bg-[#111217] border border-white/10 shadow-2xl">
               <div className="mb-6 space-y-1">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400">SEND A MESSAGE</span>
-                <h3 className="text-2xl font-black uppercase tracking-tight text-white">PROJECT INQUIRY</h3>
+                <h3 className="text-2xl font-black uppercase tracking-tight text-white">SEND A MESSAGE</h3>
               </div>
 
               {submitted ? (
@@ -145,7 +142,7 @@ export default function ContactPage() {
                     onClick={() => setSubmitted(false)}
                     className="text-xs font-mono uppercase text-zinc-300 underline underline-offset-4 mt-2"
                   >
-                    SEND ANOTHER INQUIRY
+                    SEND ANOTHER MESSAGE
                   </button>
                 </div>
               ) : (
@@ -177,16 +174,17 @@ export default function ContactPage() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-mono uppercase tracking-wider text-zinc-400">INQUIRY TYPE</label>
+                    <label className="text-[10px] font-mono uppercase tracking-wider text-zinc-400">SUBJECT</label>
                     <select
                       value={formData.inquiryType}
                       onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-[#090a0d] border border-white/15 text-white text-xs focus:border-white focus:outline-none transition-colors"
                     >
-                      <option value="Directing / Film Project">Directing / Film Project</option>
-                      <option value="Brand Collaboration">Brand Collaboration</option>
+                      <option value="General / Collaboration">General / Collaboration</option>
                       <option value="Clothing Order Question">Clothing Order Question</option>
-                      <option value="General Press & Inquiries">General Press & Inquiries</option>
+                      <option value="Video Collaboration">Video Collaboration</option>
+                      <option value="Music / Audio">Music / Audio</option>
+                      <option value="Press">Press</option>
                     </select>
                   </div>
 
@@ -197,7 +195,7 @@ export default function ContactPage() {
                       rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Tell me about your project, timeline, or inquiry..."
+                      placeholder="Tell me about your project, timeline, or message..."
                       className="w-full px-4 py-3 rounded-xl bg-[#090a0d] border border-white/15 text-white text-xs focus:border-white focus:outline-none transition-colors resize-none"
                     />
                   </div>
@@ -206,7 +204,7 @@ export default function ContactPage() {
                     type="submit"
                     className="w-full py-4 rounded-xl bg-white text-black font-black text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all flex items-center justify-center gap-2"
                   >
-                    <span>SEND INQUIRY</span>
+                    <span>SEND MESSAGE</span>
                     <Send className="w-3.5 h-3.5" />
                   </button>
                 </form>
