@@ -111,7 +111,14 @@ export default function ClothingPage() {
                 </div>
                 <div className="text-right">
                   <span className="text-base font-black tracking-tight text-white">${item.price.toFixed(2)}</span>
-                  <span className="block text-[10px] font-mono text-emerald-400 uppercase">IN STOCK</span>
+                  {item.stockLeft !== undefined ? (
+                    <span className="flex items-center justify-end gap-1.5 text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider mt-0.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                      {item.stockLeft} LEFT
+                    </span>
+                  ) : (
+                    <span className="block text-[10px] font-mono text-emerald-400 uppercase mt-0.5">IN STOCK</span>
+                  )}
                 </div>
               </div>
             </div>

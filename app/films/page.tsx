@@ -17,7 +17,7 @@ interface FilmProject {
 
 const FEATURED_FILM: FilmProject = {
   id: 'featured-1',
-  title: 'CREATIVE LIVING — VIDEO REEL',
+  title: 'FEATURED VIDEO // REEL 2026',
   category: 'Short Film / Visuals',
   year: '2026',
   duration: '3:45',

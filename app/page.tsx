@@ -13,11 +13,11 @@ export default function HomePage() {
       {/* Top Banner */}
       <div className="bg-white text-black font-black text-xs md:text-sm uppercase tracking-[0.2em] py-2 overflow-hidden whitespace-nowrap border-b border-black">
         <div className="inline-block animate-marquee">
-          <span>FREE SHIPPING WHEN YOU BUY 2 OR MORE ITEMS • SEPTEMBER DROP IS LIVE • CREATIVE LIVING • </span>
+          <span>FREE SHIPPING WHEN YOU BUY 2 OR MORE ITEMS • SEPTEMBER DROP IS LIVE • FREE SHIPPING WHEN YOU BUY 2 OR MORE ITEMS • SEPTEMBER DROP IS LIVE • </span>
         </div>
       </div>
 
-      {/* Hero Section: Hand-Drawn Logo & "Creative Living" */}
+      {/* Hero Section: Hand-Drawn Logo */}
       <section className="relative min-h-[85vh] flex flex-col items-center justify-center text-center px-4 overflow-hidden">
         
         {/* Ambient Radial Spotlight */}
@@ -37,12 +37,7 @@ export default function HomePage() {
             />
           </div>
 
-          {/* Tagline */}
-          <div className="space-y-2">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-white">
-              CREATIVE LIVING
-            </h1>
-          </div>
+          <h1 className="sr-only">THE LEE PARSONS</h1>
 
           {/* Primary Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto">
@@ -193,7 +188,7 @@ export default function HomePage() {
               FEATURED VIDEO
             </span>
             <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight text-white group-hover:text-zinc-200">
-              CREATIVE LIVING // REEL 2026
+              FEATURED VIDEO // REEL 2026
             </h3>
             <p className="text-xs md:text-sm text-zinc-300">
               Visual projects and creative video archives.

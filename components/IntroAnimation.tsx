@@ -83,9 +83,6 @@ export default function IntroAnimation() {
           <span className="block text-sm sm:text-base font-black uppercase tracking-[0.3em] text-white">
             THE LEE PARSONS
           </span>
-          <span className="block text-[10px] sm:text-xs font-mono uppercase tracking-[0.4em] text-zinc-400 mt-1">
-            CREATIVE LIVING
-          </span>
         </div>
 
       </div>

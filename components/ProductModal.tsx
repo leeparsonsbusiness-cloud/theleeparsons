@@ -22,7 +22,6 @@ export default function ProductModal({
   const [selectedProductIndex, setSelectedProductIndex] = useState(initialProductIndex);
   const [selectedColorIndex, setSelectedColorIndex] = useState(initialColorwayIndex);
   const [selectedSize, setSelectedSize] = useState('L');
-  const [activeTab, setActiveTab] = useState<'mockup' | 'lifestyle'>('mockup');
   const [addedNotice, setAddedNotice] = useState(false);
 
   const { addItem, openCart } = useCartStore();
@@ -30,7 +29,6 @@ export default function ProductModal({
   useEffect(() => {
     setSelectedProductIndex(initialProductIndex);
     setSelectedColorIndex(initialColorwayIndex);
-    setActiveTab('mockup');
   }, [initialProductIndex, initialColorwayIndex, isOpen]);
 
   // Close on escape key
@@ -98,7 +96,7 @@ export default function ProductModal({
             <div className="lg:col-span-7 space-y-4">
               <div className="relative aspect-square w-full rounded-2xl bg-gradient-to-b from-[#171922] to-[#0c0d11] border border-white/10 overflow-hidden shadow-inner flex items-center justify-center p-6">
                 <Image 
-                  src={activeTab === 'mockup' ? currentColor.mockup : currentColor.lifestyle} 
+                  src={currentColor.mockup} 
                   alt={currentColor.name}
                   fill
                   priority
@@ -110,31 +108,6 @@ export default function ProductModal({
                   <span>{currentColor.name}</span>
                 </div>
               </div>
-
-              {/* View Switcher: Studio vs Lifestyle Look */}
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  onClick={() => setActiveTab('mockup')}
-                  className={`py-3 px-4 rounded-xl border font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
-                    activeTab === 'mockup' 
-                      ? 'bg-white text-black border-white shadow-md' 
-                      : 'bg-white/5 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
-                  }`}
-                >
-                  <span>STUDIO SHOT</span>
-                </button>
-
-                <button
-                  onClick={() => setActiveTab('lifestyle')}
-                  className={`py-3 px-4 rounded-xl border font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
-                    activeTab === 'lifestyle' 
-                      ? 'bg-white text-black border-white shadow-md' 
-                      : 'bg-white/5 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
-                  }`}
-                >
-                  <span>FLATLAY VIEW</span>
-                </button>
-              </div>
             </div>
 
             {/* Right Column: Options & Add to Cart */}
@@ -145,10 +118,7 @@ export default function ProductModal({
                 <span className="text-[10px] uppercase tracking-[0.25em] text-zinc-400 font-mono">SELECT SILHOUETTE</span>
                 <div className="grid grid-cols-2 gap-2.5 p-1 rounded-xl bg-white/5 border border-white/10">
                   <button
-                    onClick={() => {
-                      setSelectedProductIndex(0);
-                      setActiveTab('mockup');
-                    }}
+                    onClick={() => setSelectedProductIndex(0)}
                     className={`py-2.5 rounded-lg font-black text-xs uppercase tracking-wider transition-all flex flex-col items-center gap-0.5 ${
                       selectedProductIndex === 0
                         ? 'bg-white text-black shadow-md'
@@ -160,10 +130,7 @@ export default function ProductModal({
                   </button>
 
                   <button
-                    onClick={() => {
-                      setSelectedProductIndex(1);
-                      setActiveTab('mockup');
-                    }}
+                    onClick={() => setSelectedProductIndex(1)}
                     className={`py-2.5 rounded-lg font-black text-xs uppercase tracking-wider transition-all flex flex-col items-center gap-0.5 ${
                       selectedProductIndex === 1
                         ? 'bg-white text-black shadow-md'
@@ -184,28 +151,38 @@ export default function ProductModal({
                 <p className="text-[11px] font-mono text-zinc-400 uppercase tracking-widest mt-1">
                   "{currentProduct.tagline}"
                 </p>
-                <div className="mt-3 flex items-baseline gap-3">
+                <div className="mt-3 flex flex-wrap items-center gap-2.5">
                   <span className="text-2xl md:text-3xl font-black tracking-tight">${currentProduct.price.toFixed(2)}</span>
+                  {currentColor.stockLeft !== undefined && (
+                    <span className="text-[10px] text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2.5 py-0.5 rounded-full font-mono font-bold tracking-wider flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                      {currentColor.stockLeft} LEFT
+                    </span>
+                  )}
                   <span className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded font-mono">
-                    LIMITED DROP • READY TO PRINT
+                    READY TO SHIP
                   </span>
                 </div>
               </div>
 
               {/* Colorways */}
               <div className="space-y-2.5">
-                <label className="text-xs uppercase font-mono text-zinc-400 tracking-wider flex justify-between">
+                <label className="text-xs uppercase font-mono text-zinc-400 tracking-wider flex justify-between items-center">
                   <span>Colorway</span>
-                  <span className="text-white font-bold">{currentColor.name} ({currentColor.colorName})</span>
+                  <span className="text-white font-bold text-right">
+                    {currentColor.name} ({currentColor.colorName})
+                    {currentColor.stockLeft !== undefined && (
+                      <span className="ml-2 text-amber-400 font-mono text-[11px]">
+                        • {currentColor.stockLeft} left
+                      </span>
+                    )}
+                  </span>
                 </label>
                 <div className="flex gap-2">
                   {currentProduct.colorways.map((col, idx) => (
                     <button
                       key={col.id}
-                      onClick={() => {
-                        setSelectedColorIndex(idx);
-                        setActiveTab('mockup');
-                      }}
+                      onClick={() => setSelectedColorIndex(idx)}
                       className={`flex items-center gap-2 px-3 py-2 rounded-lg border transition-all text-xs font-bold uppercase ${
                         selectedColorIndex === idx
                           ? 'border-white bg-white/15 ring-2 ring-white/20'

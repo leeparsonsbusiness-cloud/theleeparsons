@@ -6,6 +6,7 @@ export interface Colorway {
   mockup: string;
   lifestyle: string;
   textColor: 'white' | 'black';
+  stockLeft?: number;
 }
 
 export interface Product {
@@ -34,6 +35,7 @@ export interface DisplayItem {
   colorHex: string;
   colorName: string;
   badge: string;
+  stockLeft?: number;
 }
 
 export const PRODUCTS: Product[] = [
@@ -63,7 +65,8 @@ export const PRODUCTS: Product[] = [
         hex: '#2b2c30',
         mockup: '/mockups/washed-charcoal.png',
         lifestyle: '/lifestyle/fitgrid-charcoal.jpg',
-        textColor: 'white'
+        textColor: 'white',
+        stockLeft: 4
       },
       {
         id: 'vintage-white',
@@ -72,7 +75,8 @@ export const PRODUCTS: Product[] = [
         hex: '#e2ddcc',
         mockup: '/mockups/vintage-white.png',
         lifestyle: '/lifestyle/flatlay-white.jpg',
-        textColor: 'black'
+        textColor: 'black',
+        stockLeft: 7
       },
       {
         id: 'forest-green',
@@ -81,7 +85,8 @@ export const PRODUCTS: Product[] = [
         hex: '#334839',
         mockup: '/mockups/forest-green.png',
         lifestyle: '/mockups/forest-green.png',
-        textColor: 'white'
+        textColor: 'white',
+        stockLeft: 6
       }
     ]
   },
@@ -111,7 +116,8 @@ export const PRODUCTS: Product[] = [
         hex: '#2b2c30',
         mockup: '/mockups/hoodie-charcoal.png',
         lifestyle: '/lifestyle/fitgrid-charcoal.jpg',
-        textColor: 'white'
+        textColor: 'white',
+        stockLeft: 2
       },
       {
         id: 'vintage-white',
@@ -120,7 +126,8 @@ export const PRODUCTS: Product[] = [
         hex: '#e2ddcc',
         mockup: '/mockups/hoodie-vintage-white.png',
         lifestyle: '/lifestyle/flatlay-white.jpg',
-        textColor: 'black'
+        textColor: 'black',
+        stockLeft: 4
       },
       {
         id: 'forest-green',
@@ -129,7 +136,8 @@ export const PRODUCTS: Product[] = [
         hex: '#334839',
         mockup: '/mockups/hoodie-forest-green.png',
         lifestyle: '/mockups/hoodie-forest-green.png',
-        textColor: 'white'
+        textColor: 'white',
+        stockLeft: 5
       }
     ]
   }
@@ -147,7 +155,8 @@ export const DISPLAY_GRID_ITEMS: DisplayItem[] = [
     mockup: '/mockups/washed-charcoal.png',
     colorHex: '#2b2c30',
     colorName: 'Washed Charcoal',
-    badge: '7.5 OZ HEAVYWEIGHT'
+    badge: '7.5 OZ HEAVYWEIGHT',
+    stockLeft: 4
   },
   {
     id: 'tee-bone',
@@ -160,7 +169,8 @@ export const DISPLAY_GRID_ITEMS: DisplayItem[] = [
     mockup: '/mockups/vintage-white.png',
     colorHex: '#e2ddcc',
     colorName: 'Vintage Bone',
-    badge: '7.5 OZ HEAVYWEIGHT'
+    badge: '7.5 OZ HEAVYWEIGHT',
+    stockLeft: 7
   },
   {
     id: 'tee-forest',
@@ -173,7 +183,8 @@ export const DISPLAY_GRID_ITEMS: DisplayItem[] = [
     mockup: '/mockups/forest-green.png',
     colorHex: '#334839',
     colorName: 'Faded Forest',
-    badge: '7.5 OZ HEAVYWEIGHT'
+    badge: '7.5 OZ HEAVYWEIGHT',
+    stockLeft: 6
   },
   {
     id: 'hoodie-charcoal',
@@ -186,7 +197,8 @@ export const DISPLAY_GRID_ITEMS: DisplayItem[] = [
     mockup: '/mockups/hoodie-charcoal.png',
     colorHex: '#2b2c30',
     colorName: 'Washed Charcoal',
-    badge: '10.0 OZ FLEECE'
+    badge: '10.0 OZ FLEECE',
+    stockLeft: 2
   },
   {
     id: 'hoodie-bone',
@@ -199,7 +211,8 @@ export const DISPLAY_GRID_ITEMS: DisplayItem[] = [
     mockup: '/mockups/hoodie-vintage-white.png',
     colorHex: '#e2ddcc',
     colorName: 'Vintage Bone',
-    badge: '10.0 OZ FLEECE'
+    badge: '10.0 OZ FLEECE',
+    stockLeft: 4
   },
   {
     id: 'hoodie-forest',
@@ -212,6 +225,7 @@ export const DISPLAY_GRID_ITEMS: DisplayItem[] = [
     mockup: '/mockups/hoodie-forest-green.png',
     colorHex: '#334839',
     colorName: 'Faded Forest',
-    badge: '10.0 OZ FLEECE'
+    badge: '10.0 OZ FLEECE',
+    stockLeft: 5
   }
 ];
