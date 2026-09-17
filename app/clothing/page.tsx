@@ -1,15 +1,109 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { DISPLAY_GRID_ITEMS, DisplayItem } from '@/lib/products';
 import ProductModal from '@/components/ProductModal';
-import { Eye, Sparkles, ArrowDown } from 'lucide-react';
+import { Eye, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const LOOKBOOK_ITEMS = [
+  {
+    title: 'WASHED CHARCOAL HOODIE',
+    subtitle: '10.0 OZ FLEECE',
+    src: '/lifestyle/lookbook-hoodie-charcoal.jpg',
+  },
+  {
+    title: 'VINTAGE BONE HOODIE',
+    subtitle: '10.0 OZ FLEECE',
+    src: '/lifestyle/lookbook-hoodie-bone.jpg',
+  },
+  {
+    title: 'FADED FOREST HOODIE',
+    subtitle: '10.0 OZ FLEECE',
+    src: '/lifestyle/lookbook-hoodie-green.jpg',
+  },
+  {
+    title: 'WASHED CHARCOAL TEE',
+    subtitle: '7.5 OZ HEAVYWEIGHT',
+    src: '/lifestyle/lookbook-tee-charcoal.jpg',
+  },
+  {
+    title: 'VINTAGE BONE TEE',
+    subtitle: '7.5 OZ HEAVYWEIGHT',
+    src: '/lifestyle/lookbook-tee-bone.jpg',
+  },
+  {
+    title: 'FADED FOREST TEE',
+    subtitle: '7.5 OZ HEAVYWEIGHT',
+    src: '/lifestyle/lookbook-tee-green.jpg',
+  },
+];
+
+// Repeat items to produce a truly seamless infinite loop
+const INFINITE_LOOKBOOK = [...LOOKBOOK_ITEMS, ...LOOKBOOK_ITEMS, ...LOOKBOOK_ITEMS];
 
 export default function ClothingPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    // Center scroll on mount so user can scroll left or right immediately
+    if (el.scrollLeft === 0 && el.scrollWidth > 0) {
+      el.scrollLeft = el.scrollWidth / 3;
+    }
+
+    let reqId: number;
+    let lastTime = performance.now();
+
+    const animate = (time: number) => {
+      const delta = time - lastTime;
+      lastTime = time;
+
+      if (!isHovered && el) {
+        // Continuous smooth auto-scroll from left to right (~40px / sec)
+        el.scrollLeft += delta * 0.04;
+
+        const singleSetWidth = el.scrollWidth / 3;
+        if (singleSetWidth > 0) {
+          if (el.scrollLeft >= singleSetWidth * 2) {
+            el.scrollLeft -= singleSetWidth;
+          } else if (el.scrollLeft <= 10) {
+            el.scrollLeft += singleSetWidth;
+          }
+        }
+      }
+      reqId = requestAnimationFrame(animate);
+    };
+
+    reqId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(reqId);
+  }, [isHovered]);
+
+  const handleScroll = () => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const singleSetWidth = el.scrollWidth / 3;
+    if (singleSetWidth <= 0) return;
+
+    if (el.scrollLeft >= singleSetWidth * 2) {
+      el.scrollLeft -= singleSetWidth;
+    } else if (el.scrollLeft <= 10) {
+      el.scrollLeft += singleSetWidth;
+    }
+  };
+
+  const scrollByOffset = (offset: number) => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+  };
 
   const handleOpenProduct = (item: DisplayItem) => {
     setSelectedProductIndex(item.productIndex);
@@ -75,7 +169,7 @@ export default function ClothingPage() {
                 </div>
               </div>
 
-              {/* Garment Showcase Viewport (Still Studio View) */}
+              {/* Garment Showcase Viewport */}
               <div className="relative aspect-square w-full flex items-center justify-center p-8 bg-gradient-to-b from-[#181a24] to-[#0e0f14] overflow-hidden">
                 
                 {/* Ambient glow */}
@@ -125,63 +219,74 @@ export default function ClothingPage() {
           ))}
         </div>
 
-        {/* LOOKBOOK Section */}
-        <section className="mt-28 border-t border-white/10 pt-16" id="lookbook">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs uppercase tracking-[0.3em] text-zinc-400 font-mono">ARCHIVE // GALLERY</span>
-            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mt-1">LOOKBOOK</h2>
+        {/* LOOKBOOK Section - Continuous Infinite Scroll */}
+        <section className="mt-28 border-t border-white/10 pt-16 relative" id="lookbook">
+          <div className="max-w-7xl mx-auto mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <span className="text-xs uppercase tracking-[0.3em] text-zinc-400 font-mono">ARCHIVE // GALLERY</span>
+              <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mt-1">LOOKBOOK</h2>
+            </div>
+            
+            {/* Scroll Navigation Buttons */}
+            <div className="flex items-center gap-2 self-start sm:self-auto">
+              <button
+                onClick={() => scrollByOffset(-340)}
+                aria-label="Scroll previous"
+                className="p-3 rounded-full bg-white/5 hover:bg-white text-zinc-300 hover:text-black border border-white/10 hover:border-white transition-all shadow-lg active:scale-95"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => scrollByOffset(340)}
+                aria-label="Scroll next"
+                className="p-3 rounded-full bg-white/5 hover:bg-white text-zinc-300 hover:text-black border border-white/10 hover:border-white transition-all shadow-lg active:scale-95"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-            {[
-              {
-                title: 'WASHED CHARCOAL HOODIE',
-                subtitle: '10.0 OZ FLEECE',
-                src: '/lifestyle/lookbook-hoodie-charcoal.jpg',
-              },
-              {
-                title: 'VINTAGE BONE HOODIE',
-                subtitle: '10.0 OZ FLEECE',
-                src: '/lifestyle/lookbook-hoodie-bone.jpg',
-              },
-              {
-                title: 'FADED FOREST HOODIE',
-                subtitle: '10.0 OZ FLEECE',
-                src: '/lifestyle/lookbook-hoodie-green.jpg',
-              },
-              {
-                title: 'WASHED CHARCOAL TEE',
-                subtitle: '7.5 OZ HEAVYWEIGHT',
-                src: '/lifestyle/lookbook-tee-charcoal.jpg',
-              },
-              {
-                title: 'FADED FOREST TEE',
-                subtitle: '7.5 OZ HEAVYWEIGHT',
-                src: '/lifestyle/lookbook-tee-green.jpg',
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="relative aspect-[9/16] rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-300 group shadow-2xl bg-[#111217]"
-              >
-                <Image
-                  src={item.src}
-                  alt={item.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-4 sm:p-5">
-                  <div>
-                    <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-widest block">
-                      {item.subtitle}
-                    </span>
-                    <h3 className="font-black text-xs sm:text-sm uppercase tracking-tight text-white mt-0.5">
-                      {item.title}
-                    </h3>
+          {/* Infinite Horizontal Carousel Strip */}
+          <div 
+            className="relative w-full overflow-hidden"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onTouchStart={() => setIsHovered(true)}
+            onTouchEnd={() => setIsHovered(false)}
+          >
+            {/* Ambient Edge Shadows */}
+            <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-[#090a0d] to-transparent z-20 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-[#090a0d] to-transparent z-20 pointer-events-none" />
+
+            <div
+              ref={scrollContainerRef}
+              onScroll={handleScroll}
+              className="flex gap-4 md:gap-6 overflow-x-auto py-4 cursor-grab active:cursor-grabbing select-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {INFINITE_LOOKBOOK.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="relative aspect-[9/16] w-[240px] sm:w-[280px] md:w-[320px] shrink-0 rounded-2xl overflow-hidden border border-white/10 hover:border-white/40 transition-all duration-300 group shadow-2xl bg-[#111217]"
+                >
+                  <Image
+                    src={item.src}
+                    alt={item.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-5 pointer-events-none">
+                    <div>
+                      <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">
+                        {item.subtitle}
+                      </span>
+                      <h3 className="font-black text-xs sm:text-sm uppercase tracking-tight text-white mt-0.5">
+                        {item.title}
+                      </h3>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
       </main>

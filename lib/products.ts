@@ -74,7 +74,7 @@ export const PRODUCTS: Product[] = [
         colorName: 'Unbleached Ecru',
         hex: '#e2ddcc',
         mockup: '/mockups/vintage-white.png',
-        lifestyle: '/lifestyle/lookbook-hoodie-bone.jpg',
+        lifestyle: '/lifestyle/lookbook-tee-bone.jpg',
         textColor: 'black',
         stockLeft: 7
       },
