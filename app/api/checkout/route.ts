@@ -29,8 +29,10 @@ export async function POST(req: Request) {
           description: 'SHOUTOUT TO THE GAYS FOR LEAVING MORE CHICKS FOR ME - Premium Streetwear',
           images: item.image && item.image.startsWith('http') ? [item.image] : [`${origin}${item.image}`],
           metadata: {
-            colorway: item.colorwayId,
+            productId: item.productId || 'shoutout-tee',
+            colorwayId: item.colorwayId,
             size: item.size,
+            quantity: String(item.quantity || 1),
           }
         },
         unit_amount: Math.round(item.price * 100),
@@ -79,6 +81,12 @@ export async function POST(req: Request) {
       metadata: {
         orderSource: 'theleeparsons.com',
         promoApplied: isFreeShipping ? 'FREE_SHIPPING_2_PLUS' : 'NONE',
+        orderItems: JSON.stringify(items.map((i: any) => ({
+          productId: i.productId || 'shoutout-tee',
+          colorwayId: i.colorwayId,
+          size: i.size,
+          quantity: i.quantity || 1,
+        }))),
       }
     });
 

@@ -64,7 +64,7 @@ export const PRODUCTS: Product[] = [
         colorName: 'Vintage Faded Black',
         hex: '#2b2c30',
         mockup: '/mockups/washed-charcoal.png',
-        lifestyle: '/lifestyle/fitgrid-charcoal.jpg',
+        lifestyle: '/lifestyle/lookbook-tee-charcoal.jpg',
         textColor: 'white',
         stockLeft: 4
       },
@@ -74,7 +74,7 @@ export const PRODUCTS: Product[] = [
         colorName: 'Unbleached Ecru',
         hex: '#e2ddcc',
         mockup: '/mockups/vintage-white.png',
-        lifestyle: '/lifestyle/flatlay-white.jpg',
+        lifestyle: '/lifestyle/lookbook-hoodie-bone.jpg',
         textColor: 'black',
         stockLeft: 7
       },
@@ -84,7 +84,7 @@ export const PRODUCTS: Product[] = [
         colorName: 'Garment-Dyed Pine',
         hex: '#334839',
         mockup: '/mockups/forest-green.png',
-        lifestyle: '/mockups/forest-green.png',
+        lifestyle: '/lifestyle/lookbook-tee-green.jpg',
         textColor: 'white',
         stockLeft: 6
       }
@@ -115,7 +115,7 @@ export const PRODUCTS: Product[] = [
         colorName: 'Vintage Faded Black',
         hex: '#2b2c30',
         mockup: '/mockups/hoodie-charcoal.png',
-        lifestyle: '/lifestyle/fitgrid-charcoal.jpg',
+        lifestyle: '/lifestyle/lookbook-hoodie-charcoal.jpg',
         textColor: 'white',
         stockLeft: 2
       },
@@ -125,7 +125,7 @@ export const PRODUCTS: Product[] = [
         colorName: 'Unbleached Ecru',
         hex: '#e2ddcc',
         mockup: '/mockups/hoodie-vintage-white.png',
-        lifestyle: '/lifestyle/flatlay-white.jpg',
+        lifestyle: '/lifestyle/lookbook-hoodie-bone.jpg',
         textColor: 'black',
         stockLeft: 4
       },
@@ -135,7 +135,7 @@ export const PRODUCTS: Product[] = [
         colorName: 'Garment-Dyed Pine',
         hex: '#334839',
         mockup: '/mockups/hoodie-forest-green.png',
-        lifestyle: '/mockups/hoodie-forest-green.png',
+        lifestyle: '/lifestyle/lookbook-hoodie-green.jpg',
         textColor: 'white',
         stockLeft: 5
       }

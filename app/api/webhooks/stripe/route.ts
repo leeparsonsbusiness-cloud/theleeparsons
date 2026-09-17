@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { resolvePrintifyTarget } from '@/lib/printifyMapping';
 
 export async function POST(req: Request) {
   try {
@@ -30,64 +31,117 @@ export async function POST(req: Request) {
       const session = event.data.object as any;
       console.log('✅ Payment succeeded for Stripe Session:', session.id);
       console.log('Customer Email:', session.customer_details?.email);
-      console.log('Customer Shipping:', JSON.stringify(session.shipping_details || session.customer_details, null, 2));
 
-      // Retrieve line items
-      const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
-      console.log('Ordered items:', JSON.stringify(lineItems.data, null, 2));
+      // Extract shipping information
+      const shipping = session.collected_information?.shipping_details || session.shipping_details || session.customer_details;
+      const address = shipping?.address;
 
-      // 1. Printful Fulfillment API Sync
-      const printfulKey = process.env.PRINTFUL_API_KEY;
-      const printfulStoreId = process.env.PRINTFUL_STORE_ID || '18755267';
+      if (!address) {
+        console.error('❌ No valid shipping address found for session:', session.id);
+        return NextResponse.json({ error: 'Missing shipping address' }, { status: 400 });
+      }
 
-      if (printfulKey) {
-        console.log('Triggering Printful automated fulfillment...');
-        const shipping = session.shipping_details || session.customer_details;
-        const address = shipping?.address;
+      const fullName = (shipping.name || session.customer_details?.name || 'Customer').trim();
+      const nameParts = fullName.split(/\s+/);
+      const firstName = nameParts[0] || 'Valued';
+      const lastName = nameParts.slice(1).join(' ') || 'Customer';
 
-        if (address) {
-          const printfulOrderPayload = {
+      // 1. Resolve ordered items
+      let rawItems: Array<{ productId: string; colorwayId: string; size: string; quantity: number }> = [];
+
+      if (session.metadata?.orderItems) {
+        try {
+          rawItems = JSON.parse(session.metadata.orderItems);
+        } catch (e) {
+          console.warn('Failed to parse session metadata.orderItems, falling back to line items:', e);
+        }
+      }
+
+      if (!rawItems.length) {
+        const lineItems = await stripe.checkout.sessions.listLineItems(session.id, {
+          expand: ['data.price.product']
+        });
+
+        rawItems = lineItems.data.map((item: any) => {
+          const product = item.price?.product as Stripe.Product | undefined;
+          const meta = product?.metadata || {};
+          return {
+            productId: meta.productId || 'shoutout-tee',
+            colorwayId: meta.colorwayId || 'washed-charcoal',
+            size: meta.size || 'L',
+            quantity: item.quantity || 1,
+          };
+        });
+      }
+
+      console.log('Normalized order items:', JSON.stringify(rawItems, null, 2));
+
+      // 2. Map items to Printify Product and Variant IDs
+      const printifyLineItems = rawItems.map((item) => {
+        const target = resolvePrintifyTarget(item.productId, item.colorwayId, item.size);
+        if (!target) {
+          console.warn(`⚠️ No Printify variant match found for ${item.productId} / ${item.colorwayId} / ${item.size}`);
+          return null;
+        }
+        return {
+          product_id: target.productId,
+          variant_id: target.variantId,
+          quantity: item.quantity,
+        };
+      }).filter(Boolean);
+
+      // 3. Submit to Printify Orders API
+      const printifyKey = process.env.PRINTIFY_API_KEY;
+      const printifyShopId = process.env.PRINTIFY_SHOP_ID;
+
+      if (printifyKey && printifyShopId) {
+        if (!printifyLineItems.length) {
+          console.error('❌ All items lacked Printify variant mapping. Order logged for manual fulfillment.');
+        } else {
+          console.log(`🚀 Sending order to Printify for Shop ${printifyShopId}...`);
+
+          const printifyOrderPayload = {
             external_id: session.id,
-            shipping: 'STANDARD',
-            recipient: {
-              name: shipping.name || 'Valued Customer',
+            label: `Order #${session.id.slice(-8).toUpperCase()}`,
+            line_items: printifyLineItems,
+            shipping_method: 1,
+            send_shipping_notification: true,
+            address_to: {
+              first_name: firstName,
+              last_name: lastName,
+              email: session.customer_details?.email || '',
+              phone: session.customer_details?.phone || '',
+              country: address.country || 'US',
+              region: address.state || '',
               address1: address.line1 || '',
               address2: address.line2 || '',
               city: address.city || '',
-              state_code: address.state || '',
-              country_code: address.country || 'US',
               zip: address.postal_code || '',
-              email: session.customer_details?.email || '',
-              phone: session.customer_details?.phone || '',
-            },
-            items: lineItems.data.map((item) => ({
-              name: item.description || 'Shoutout Streetwear Garment',
-              quantity: item.quantity || 1,
-              retail_price: ((item.amount_total || 2799) / 100 / (item.quantity || 1)).toFixed(2),
-            })),
-            retail_costs: {
-              currency: 'USD',
-              total: ((session.amount_total || 0) / 100).toFixed(2),
             },
           };
 
           try {
-            const printfulRes = await fetch('https://api.printful.com/orders', {
+            const printifyRes = await fetch(`https://api.printify.com/v1/shops/${printifyShopId}/orders.json`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${printfulKey}`,
-                'X-PF-Store-Id': printfulStoreId,
+                'Authorization': `Bearer ${printifyKey}`,
               },
-              body: JSON.stringify(printfulOrderPayload),
+              body: JSON.stringify(printifyOrderPayload),
             });
 
-            const printfulData = await printfulRes.json();
-            console.log('Printful API order response:', JSON.stringify(printfulData, null, 2));
+            const printifyData = await printifyRes.json();
+            if (printifyRes.ok) {
+              console.log('✅ Printify order created successfully! Order ID:', printifyData.id);
+            } else {
+              console.error('❌ Printify API returned error:', JSON.stringify(printifyData, null, 2));
+            }
           } catch (pErr) {
-            console.error('Failed to send order to Printful API:', pErr);
+            console.error('❌ Network error submitting to Printify API:', pErr);
           }
         }
+      } else {
+        console.warn('⚠️ PRINTIFY_API_KEY or PRINTIFY_SHOP_ID not yet set in environment. Order recorded for fulfillment.');
       }
     }
 
@@ -97,3 +151,4 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: err.message || 'Internal server error' }, { status: 500 });
   }
 }
+

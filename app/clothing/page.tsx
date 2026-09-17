@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { DISPLAY_GRID_ITEMS, DisplayItem } from '@/lib/products';
 import ProductModal from '@/components/ProductModal';
-import CampaignVideo from '@/components/CampaignVideo';
 import { Eye, Sparkles, ArrowDown } from 'lucide-react';
 
 export default function ClothingPage() {
@@ -51,11 +50,6 @@ export default function ClothingPage() {
             <span>HEAVYWEIGHT 7.5 OZ & 10.0 OZ</span>
           </div>
         </div>
-      </section>
-
-      {/* Campaign Video Showcase */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
-        <CampaignVideo />
       </section>
 
       {/* Multi-Box Garment Showcase Grid */}
@@ -138,36 +132,56 @@ export default function ClothingPage() {
             <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight mt-1">LOOKBOOK</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 group shadow-2xl">
-              <Image 
-                src="/lifestyle/fitgrid-charcoal.jpg" 
-                alt="Washed Charcoal Fit-Grid" 
-                fill 
-                className="object-cover group-hover:scale-105 transition-transform duration-500" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
-                <div>
-                  <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">OUTFIT ESSENTIALS</span>
-                  <h3 className="font-black text-xl uppercase tracking-tight text-white">WASHED CHARCOAL</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+            {[
+              {
+                title: 'WASHED CHARCOAL HOODIE',
+                subtitle: '10.0 OZ FLEECE',
+                src: '/lifestyle/lookbook-hoodie-charcoal.jpg',
+              },
+              {
+                title: 'VINTAGE BONE HOODIE',
+                subtitle: '10.0 OZ FLEECE',
+                src: '/lifestyle/lookbook-hoodie-bone.jpg',
+              },
+              {
+                title: 'FADED FOREST HOODIE',
+                subtitle: '10.0 OZ FLEECE',
+                src: '/lifestyle/lookbook-hoodie-green.jpg',
+              },
+              {
+                title: 'WASHED CHARCOAL TEE',
+                subtitle: '7.5 OZ HEAVYWEIGHT',
+                src: '/lifestyle/lookbook-tee-charcoal.jpg',
+              },
+              {
+                title: 'FADED FOREST TEE',
+                subtitle: '7.5 OZ HEAVYWEIGHT',
+                src: '/lifestyle/lookbook-tee-green.jpg',
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="relative aspect-[9/16] rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-300 group shadow-2xl bg-[#111217]"
+              >
+                <Image
+                  src={item.src}
+                  alt={item.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-4 sm:p-5">
+                  <div>
+                    <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-widest block">
+                      {item.subtitle}
+                    </span>
+                    <h3 className="font-black text-xs sm:text-sm uppercase tracking-tight text-white mt-0.5">
+                      {item.title}
+                    </h3>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 group shadow-2xl">
-              <Image 
-                src="/lifestyle/flatlay-white.jpg" 
-                alt="Vintage White Flatlay" 
-                fill 
-                className="object-cover group-hover:scale-105 transition-transform duration-500" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
-                <div>
-                  <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">UNBLEACHED ECRU</span>
-                  <h3 className="font-black text-xl uppercase tracking-tight text-white">VINTAGE COTTON DRAPE</h3>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
       </main>
