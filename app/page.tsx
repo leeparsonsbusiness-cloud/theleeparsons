@@ -30,7 +30,7 @@ export default function HomePage() {
           <h1 className="sr-only">THE LEE PARSONS</h1>
 
           {/* Featured Campaign Video */}
-          <CampaignVideo badge="SEPTEMBER DROP // OFFICIAL PROMO" />
+          <CampaignVideo />
 
           {/* Primary Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-2 w-full sm:w-auto">

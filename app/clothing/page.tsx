@@ -55,7 +55,7 @@ export default function ClothingPage() {
 
       {/* Campaign Video Showcase */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
-        <CampaignVideo badge="SEPTEMBER DROP // OFFICIAL CAMPAIGN" />
+        <CampaignVideo />
       </section>
 
       {/* Multi-Box Garment Showcase Grid */}
