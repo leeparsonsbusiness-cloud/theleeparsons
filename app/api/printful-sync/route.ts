@@ -16,43 +16,36 @@ export async function GET(req: Request) {
   }
 
   try {
-    // 1. Fetch store info
-    const storeRes = await fetch('https://api.printful.com/stores', {
-      headers: {
-        'Authorization': `Bearer ${printfulKey}`,
-      },
-    });
-    const storeData = await storeRes.json();
-
-    // 2. Fetch sync products in the store
-    const productsRes = await fetch('https://api.printful.com/store/products', {
+    // 1. Product templates
+    const templatesRes = await fetch('https://api.printful.com/product-templates', {
       headers: {
         'Authorization': `Bearer ${printfulKey}`,
         'X-PF-Store-Id': printfulStoreId,
       },
     });
-    const productsData = await productsRes.json();
+    const templatesData = await templatesRes.json();
 
-    // 3. For each product, get variants
-    const detailedProducts = [];
-    if (productsData.result && Array.isArray(productsData.result)) {
-      for (const prod of productsData.result) {
-        const detailRes = await fetch(`https://api.printful.com/store/products/${prod.id}`, {
-          headers: {
-            'Authorization': `Bearer ${printfulKey}`,
-            'X-PF-Store-Id': printfulStoreId,
-          },
-        });
-        const detailData = await detailRes.json();
-        detailedProducts.push(detailData.result);
-      }
-    }
+    // 2. Orders list
+    const ordersRes = await fetch('https://api.printful.com/orders?limit=10', {
+      headers: {
+        'Authorization': `Bearer ${printfulKey}`,
+        'X-PF-Store-Id': printfulStoreId,
+      },
+    });
+    const ordersData = await ordersRes.json();
+
+    // 3. File library (to see if print files were uploaded)
+    const filesRes = await fetch('https://api.printful.com/files?limit=10', {
+      headers: {
+        'Authorization': `Bearer ${printfulKey}`,
+      },
+    });
+    const filesData = await filesRes.json();
 
     return NextResponse.json({
-      storeId: printfulStoreId,
-      stores: storeData,
-      syncProductsList: productsData,
-      detailedProducts,
+      templates: templatesData,
+      orders: ordersData,
+      files: filesData,
     });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
