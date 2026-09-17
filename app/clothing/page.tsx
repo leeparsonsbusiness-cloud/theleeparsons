@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { DISPLAY_GRID_ITEMS, DisplayItem } from '@/lib/products';
 import ProductModal from '@/components/ProductModal';
+import CampaignVideo from '@/components/CampaignVideo';
 import { Eye, Sparkles, ArrowDown } from 'lucide-react';
 
 export default function ClothingPage() {
@@ -50,6 +51,11 @@ export default function ClothingPage() {
             <span>HEAVYWEIGHT 7.5 OZ & 10.0 OZ</span>
           </div>
         </div>
+      </section>
+
+      {/* Campaign Video Showcase */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
+        <CampaignVideo badge="SEPTEMBER DROP // OFFICIAL CAMPAIGN" />
       </section>
 
       {/* Multi-Box Garment Showcase Grid */}

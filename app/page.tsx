@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import IntroAnimation from '@/components/IntroAnimation';
+import CampaignVideo from '@/components/CampaignVideo';
 import { ArrowRight, Play, ShoppingBag, Film, Mail, Sparkles, ChevronDown } from 'lucide-react';
 
 export default function HomePage() {
@@ -17,30 +18,22 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Hero Section: Hand-Drawn Logo */}
-      <section className="relative min-h-[85vh] flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+      {/* Hero Section: Campaign Video */}
+      <section className="relative min-h-[85vh] flex flex-col items-center justify-center text-center px-4 py-8 sm:py-12 overflow-hidden">
         
         {/* Ambient Radial Spotlight */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.07)_0%,transparent_70%)] pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/[0.03] blur-3xl rounded-full pointer-events-none" />
 
-        <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center space-y-6">
+        <div className="relative z-10 max-w-4xl w-full mx-auto flex flex-col items-center space-y-6">
           
-          {/* Animated Hand-Drawn TLP Logo Entrance */}
-          <div className="relative w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 transition-transform duration-700 hover:scale-105 animate-fade-in">
-            <Image
-              src="/logo-white.png"
-              alt="The Lee Parsons Logo"
-              fill
-              priority
-              className="object-contain drop-shadow-[0_15px_30px_rgba(255,255,255,0.1)]"
-            />
-          </div>
-
           <h1 className="sr-only">THE LEE PARSONS</h1>
 
+          {/* Featured Campaign Video */}
+          <CampaignVideo badge="SEPTEMBER DROP // OFFICIAL PROMO" />
+
           {/* Primary Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-center gap-4 pt-2 w-full sm:w-auto">
             <Link
               href="/clothing"
               className="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-black font-black text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 shadow-2xl"
@@ -61,7 +54,7 @@ export default function HomePage() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-[10px] font-mono text-zinc-500 uppercase tracking-widest animate-bounce">
+        <div className="pt-6 flex flex-col items-center gap-1 text-[10px] font-mono text-zinc-500 uppercase tracking-widest animate-bounce">
           <span>SCROLL</span>
           <ChevronDown className="w-3.5 h-3.5" />
         </div>
