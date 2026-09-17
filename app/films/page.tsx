@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Play, ArrowRight, ExternalLink } from 'lucide-react';
+import { Play, ArrowRight, ExternalLink, ChevronLeft, ChevronRight, Film as FilmIcon } from 'lucide-react';
 import TrustTheThumbCard from '@/components/TrustTheThumbCard';
 
 interface YouTubeWork {
@@ -14,7 +14,7 @@ interface YouTubeWork {
   url: string;
 }
 
-const TOP_YOUTUBE_WORKS: YouTubeWork[] = [
+const YOUTUBE_VIDEOS: YouTubeWork[] = [
   {
     id: 'yt-1',
     youtubeId: 'fmW6gG8wgVc',
@@ -36,10 +36,40 @@ const TOP_YOUTUBE_WORKS: YouTubeWork[] = [
     thumbnail: '/thumbnails/yt-5OOd4M0tcbA.jpg',
     url: 'https://www.youtube.com/watch?v=5OOd4M0tcbA',
   },
+  {
+    id: 'yt-4',
+    youtubeId: 'T1yL8URtsIQ',
+    title: 'Hiking to LA’s Hidden Waterfall: Switzer Falls',
+    thumbnail: '/thumbnails/yt-T1yL8URtsIQ.jpg',
+    url: 'https://www.youtube.com/watch?v=T1yL8URtsIQ',
+  },
+  {
+    id: 'yt-5',
+    youtubeId: '3SDolERwSv4',
+    title: 'Playing Drums Under the Highest Peak in the US (Freaking Out Cover)',
+    thumbnail: '/thumbnails/yt-3SDolERwSv4.jpg',
+    url: 'https://www.youtube.com/watch?v=3SDolERwSv4',
+  },
+  {
+    id: 'yt-6',
+    youtubeId: 'B0MThDuAkI0',
+    title: 'I found a place that doesn’t feel real',
+    thumbnail: '/thumbnails/yt-B0MThDuAkI0.jpg',
+    url: 'https://www.youtube.com/watch?v=B0MThDuAkI0',
+  },
+];
+
+// Triplicate the video items to achieve a smooth, seamless infinite loop
+const INFINITE_YOUTUBE_VIDEOS = [
+  ...YOUTUBE_VIDEOS,
+  ...YOUTUBE_VIDEOS,
+  ...YOUTUBE_VIDEOS,
 ];
 
 export default function FilmsPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -52,6 +82,62 @@ export default function FilmsPage() {
       }, 100);
     });
   }, []);
+
+  // Infinite auto-scroll logic matching the clothing lookbook
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    // Center scroll on mount so user can scroll left or right immediately
+    if (el.scrollLeft === 0 && el.scrollWidth > 0) {
+      el.scrollLeft = el.scrollWidth / 3;
+    }
+
+    let reqId: number;
+    let lastTime = performance.now();
+
+    const animate = (time: number) => {
+      const delta = time - lastTime;
+      lastTime = time;
+
+      if (!isHovered && el) {
+        // Continuous smooth auto-scroll from left to right (~35px / sec)
+        el.scrollLeft += delta * 0.035;
+
+        const singleSetWidth = el.scrollWidth / 3;
+        if (singleSetWidth > 0) {
+          if (el.scrollLeft >= singleSetWidth * 2) {
+            el.scrollLeft -= singleSetWidth;
+          } else if (el.scrollLeft <= 10) {
+            el.scrollLeft += singleSetWidth;
+          }
+        }
+      }
+      reqId = requestAnimationFrame(animate);
+    };
+
+    reqId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(reqId);
+  }, [isHovered]);
+
+  const handleScroll = () => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const singleSetWidth = el.scrollWidth / 3;
+    if (singleSetWidth <= 0) return;
+
+    if (el.scrollLeft >= singleSetWidth * 2) {
+      el.scrollLeft -= singleSetWidth;
+    } else if (el.scrollLeft <= 10) {
+      el.scrollLeft += singleSetWidth;
+    }
+  };
+
+  const scrollByOffset = (offset: number) => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: offset, behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-[#090a0d] text-white selection:bg-white selection:text-black">
@@ -103,67 +189,146 @@ export default function FilmsPage() {
         </div>
       </section>
 
-      {/* Selected Works Grid - Top 3 Most Viewed YouTube Videos without views, time, or subtitles */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
-        <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+      {/* YOUTUBE VIDEOS Section - Continuous Infinite Horizontal Scrolling Carousel */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 pb-20 border-t border-white/10 pt-16 relative">
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">YOUTUBE ARCHIVE</span>
-            <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white mt-1">
-              SELECTED WORKS
-            </h3>
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white mt-1">
+              YOUTUBE VIDEOS
+            </h2>
           </div>
-          <a
-            href="https://youtube.com/@theleeparsons"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs font-mono text-zinc-400 hover:text-white flex items-center gap-1.5 transition-colors"
+          
+          {/* Controls: Prev/Next Buttons and YouTube Link */}
+          <div className="flex items-center gap-3 self-start sm:self-auto">
+            <a
+              href="https://youtube.com/@theleeparsons"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-mono text-zinc-400 hover:text-white flex items-center gap-1.5 transition-colors mr-2 hidden sm:flex"
+            >
+              <span>VIEW CHANNEL</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => scrollByOffset(-380)}
+                aria-label="Scroll previous"
+                className="p-3 rounded-full bg-white/5 hover:bg-white text-zinc-300 hover:text-black border border-white/10 hover:border-white transition-all shadow-lg active:scale-95"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => scrollByOffset(380)}
+                aria-label="Scroll next"
+                className="p-3 rounded-full bg-white/5 hover:bg-white text-zinc-300 hover:text-black border border-white/10 hover:border-white transition-all shadow-lg active:scale-95"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Infinite Horizontal Carousel Strip */}
+        <div 
+          className="relative w-full overflow-hidden"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onTouchStart={() => setIsHovered(true)}
+          onTouchEnd={() => setIsHovered(false)}
+        >
+          {/* Ambient Edge Shadows */}
+          <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-[#090a0d] to-transparent z-20 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-[#090a0d] to-transparent z-20 pointer-events-none" />
+
+          <div
+            ref={scrollContainerRef}
+            onScroll={handleScroll}
+            className="flex gap-6 md:gap-8 overflow-x-auto py-4 cursor-grab active:cursor-grabbing select-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            <span>VIEW ALL ON YOUTUBE</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </a>
+            {INFINITE_YOUTUBE_VIDEOS.map((work, idx) => (
+              <a
+                key={`${work.id}-${idx}`}
+                href={work.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group shrink-0 w-[300px] sm:w-[360px] md:w-[400px] rounded-2xl bg-[#111217] border border-white/10 hover:border-white/40 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl flex flex-col"
+              >
+                {/* Thumbnail Container */}
+                <div className="relative aspect-video w-full bg-black overflow-hidden border-b border-white/5">
+                  <Image
+                    src={work.thumbnail}
+                    alt={work.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
+                  />
+                  
+                  {/* Play Button Overlay on Hover */}
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+                    <div className="w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white group-hover:bg-red-600 group-hover:border-red-500 group-hover:scale-110 transition-all duration-300 shadow-xl">
+                      <Play className="w-5 h-5 fill-current ml-0.5" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Info - Clean: Only Title & Watch Link */}
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-4 bg-[#0d0e13]">
+                  <h4 className="font-black text-sm sm:text-base uppercase tracking-tight text-white group-hover:text-zinc-200 transition-colors line-clamp-2">
+                    {work.title}
+                  </h4>
+
+                  <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-zinc-300 group-hover:text-white">
+                    <span className="flex items-center gap-1.5">
+                      WATCH ON YOUTUBE
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </span>
+                    <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PASSION PROJECTS Section - 3 Blank Boxes To Be Filled Soon */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 pb-20 border-t border-white/10 pt-16">
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+          <div>
+            <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">ORIGINAL FILMS // IN PRODUCTION</span>
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white mt-1">
+              PASSION PROJECTS
+            </h2>
+          </div>
+          <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest self-start sm:self-auto">
+            3 UPCOMING RELEASES
+          </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {TOP_YOUTUBE_WORKS.map((work) => (
-            <a
-              key={work.id}
-              href={work.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group cursor-pointer rounded-2xl bg-[#111217] border border-white/10 hover:border-white/40 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl flex flex-col"
+          {[1, 2, 3].map((boxNum) => (
+            <div
+              key={boxNum}
+              className="relative aspect-video w-full rounded-2xl border-2 border-dashed border-white/15 bg-gradient-to-br from-[#111217] to-[#0a0b0e] flex flex-col items-center justify-center p-8 text-center transition-all duration-300 hover:border-white/30 group shadow-xl"
             >
-              {/* Thumbnail Container */}
-              <div className="relative aspect-video w-full bg-black overflow-hidden border-b border-white/5">
-                <Image
-                  src={work.thumbnail}
-                  alt={work.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                
-                {/* Play Button Overlay on Hover */}
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
-                  <div className="w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white group-hover:bg-red-600 group-hover:border-red-500 group-hover:scale-110 transition-all duration-300 shadow-xl">
-                    <Play className="w-5 h-5 fill-current ml-0.5" />
-                  </div>
+              {/* Subtle ambient glow on hover */}
+              <div className="absolute inset-0 bg-white/[0.02] rounded-2xl group-hover:bg-white/[0.04] transition-colors pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:border-white/30 transition-all">
+                  <FilmIcon className="w-5 h-5" />
                 </div>
-              </div>
-
-              {/* Info - Clean: Only Title & Watch Link */}
-              <div className="p-6 flex-1 flex flex-col justify-between space-y-4 bg-[#0d0e13]">
-                <h4 className="font-black text-base uppercase tracking-tight text-white group-hover:text-zinc-200 transition-colors line-clamp-2">
-                  {work.title}
-                </h4>
-
-                <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-zinc-300 group-hover:text-white">
-                  <span className="flex items-center gap-1.5">
-                    WATCH ON YOUTUBE
-                    <ExternalLink className="w-3.5 h-3.5" />
+                <div className="space-y-1">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400">
+                    PROJECT {boxNum}
                   </span>
-                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                  <p className="text-sm font-black uppercase tracking-wide text-zinc-300">
+                    COMING SOON
+                  </p>
                 </div>
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </section>
