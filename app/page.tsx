@@ -521,8 +521,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20 border-t border-white/10 pt-16 relative">
           <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">YOUTUBE ARCHIVE</span>
-              <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white mt-1">
+              <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white">
                 YOUTUBE VIDEOS
               </h3>
             </div>
@@ -623,7 +622,6 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20 border-t border-white/10 pt-16">
           <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
             <div>
-              <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">ORIGINAL FILMS // IN PRODUCTION</span>
               <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white mt-1">
                 PASSION PROJECTS
               </h3>
