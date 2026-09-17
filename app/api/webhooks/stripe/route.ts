@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { resolvePrintifyTarget } from '@/lib/printifyMapping';
+import { resolvePrintfulTarget } from '@/lib/printfulMapping';
 
 export async function POST(req: Request) {
   try {
     const stripeKey = process.env.STRIPE_SECRET_KEY;
     if (!stripeKey) {
-      return NextResponse.json({ error: 'Stripe key missing' }, { status: 500 });
+      return NextResponse.json({ error: 'Stripe secret key missing' }, { status: 500 });
     }
 
     const stripe = new Stripe(stripeKey);
@@ -42,11 +42,8 @@ export async function POST(req: Request) {
       }
 
       const fullName = (shipping.name || session.customer_details?.name || 'Customer').trim();
-      const nameParts = fullName.split(/\s+/);
-      const firstName = nameParts[0] || 'Valued';
-      const lastName = nameParts.slice(1).join(' ') || 'Customer';
 
-      // 1. Resolve ordered items
+      // 1. Resolve ordered items from session metadata or Stripe line items
       let rawItems: Array<{ productId: string; colorwayId: string; size: string; quantity: number }> = [];
 
       if (session.metadata?.orderItems) {
@@ -67,7 +64,7 @@ export async function POST(req: Request) {
           const meta = product?.metadata || {};
           return {
             productId: meta.productId || 'shoutout-tee',
-            colorwayId: meta.colorwayId || 'washed-charcoal',
+            colorwayId: meta.colorwayId || 'forest-green',
             size: meta.size || 'L',
             quantity: item.quantity || 1,
           };
@@ -76,72 +73,77 @@ export async function POST(req: Request) {
 
       console.log('Normalized order items:', JSON.stringify(rawItems, null, 2));
 
-      // 2. Map items to Printify Product and Variant IDs
-      const printifyLineItems = rawItems.map((item) => {
-        const target = resolvePrintifyTarget(item.productId, item.colorwayId, item.size);
+      // 2. Map items to Printful Variant IDs & Print Files
+      const printfulLineItems = rawItems.map((item) => {
+        const target = resolvePrintfulTarget(item.productId, item.colorwayId, item.size);
         if (!target) {
-          console.warn(`⚠️ No Printify variant match found for ${item.productId} / ${item.colorwayId} / ${item.size}`);
+          console.warn(`⚠️ No Printful variant match found for ${item.productId} / ${item.colorwayId} / ${item.size}`);
           return null;
         }
+
         return {
-          product_id: target.productId,
           variant_id: target.variantId,
           quantity: item.quantity,
+          files: target.files,
+          name: `SHOUTOUT ${target.colorName} - Size ${item.size}`,
         };
       }).filter(Boolean);
 
-      // 3. Submit to Printify Orders API
-      const printifyKey = process.env.PRINTIFY_API_KEY;
-      const printifyShopId = process.env.PRINTIFY_SHOP_ID;
+      // 3. Submit automated order directly to Printful Orders API
+      const printfulKey = process.env.PRINTFUL_API_KEY;
+      const printfulStoreId = process.env.PRINTFUL_STORE_ID || '18755267';
 
-      if (printifyKey && printifyShopId) {
-        if (!printifyLineItems.length) {
-          console.error('❌ All items lacked Printify variant mapping. Order logged for manual fulfillment.');
+      if (printfulKey) {
+        if (!printfulLineItems.length) {
+          console.error('❌ All items lacked Printful variant mapping. Order logged for manual fulfillment.');
         } else {
-          console.log(`🚀 Sending order to Printify for Shop ${printifyShopId}...`);
+          console.log(`🚀 Dispatching automated order to Printful (Store ID: ${printfulStoreId})...`);
 
-          const printifyOrderPayload = {
+          const printfulOrderPayload = {
             external_id: session.id,
-            label: `Order #${session.id.slice(-8).toUpperCase()}`,
-            line_items: printifyLineItems,
-            shipping_method: 1,
-            send_shipping_notification: true,
-            address_to: {
-              first_name: firstName,
-              last_name: lastName,
-              email: session.customer_details?.email || '',
-              phone: session.customer_details?.phone || '',
-              country: address.country || 'US',
-              region: address.state || '',
+            shipping: 'STANDARD',
+            recipient: {
+              name: fullName,
               address1: address.line1 || '',
-              address2: address.line2 || '',
+              address2: address.line2 || undefined,
               city: address.city || '',
+              state_code: address.state || '',
+              country_code: address.country || 'US',
               zip: address.postal_code || '',
+              phone: session.customer_details?.phone || undefined,
+              email: session.customer_details?.email || undefined,
             },
+            items: printfulLineItems,
+            confirm: true, // Automatically charges billing method & sends to production queue
           };
 
           try {
-            const printifyRes = await fetch(`https://api.printify.com/v1/shops/${printifyShopId}/orders.json`, {
+            const printfulRes = await fetch('https://api.printful.com/orders?confirm=true', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${printifyKey}`,
+                'Authorization': `Bearer ${printfulKey}`,
+                'X-PF-Store-Id': printfulStoreId,
               },
-              body: JSON.stringify(printifyOrderPayload),
+              body: JSON.stringify(printfulOrderPayload),
             });
 
-            const printifyData = await printifyRes.json();
-            if (printifyRes.ok) {
-              console.log('✅ Printify order created successfully! Order ID:', printifyData.id);
+            const printfulData = await printfulRes.json();
+
+            if (printfulRes.ok && (printfulData.code === 200 || printfulData.code === 201)) {
+              console.log('✅ Printful order automatically created and confirmed!');
+              console.log('Order ID:', printfulData.result?.id);
+              console.log('Order Status:', printfulData.result?.status);
+              console.log('Total Cost Charged to Printful:', printfulData.result?.costs?.total);
             } else {
-              console.error('❌ Printify API returned error:', JSON.stringify(printifyData, null, 2));
+              console.error('❌ Printful API rejected order:', JSON.stringify(printfulData, null, 2));
             }
           } catch (pErr) {
-            console.error('❌ Network error submitting to Printify API:', pErr);
+            console.error('❌ Network error submitting order to Printful:', pErr);
           }
         }
       } else {
-        console.warn('⚠️ PRINTIFY_API_KEY or PRINTIFY_SHOP_ID not yet set in environment. Order recorded for fulfillment.');
+        console.warn('⚠️ PRINTFUL_API_KEY is not configured in environment variables.');
       }
     }
 
@@ -151,4 +153,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: err.message || 'Internal server error' }, { status: 500 });
   }
 }
-
