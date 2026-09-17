@@ -1,83 +1,14 @@
 "use client";
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { 
-  TrendingUp, 
   Video, 
   Target, 
-  Megaphone, 
-  Zap, 
-  BarChart3, 
-  ArrowUpRight, 
   CheckCircle2, 
   Layers, 
-  Users, 
-  Sparkles, 
   Mail,
   ArrowRight,
-  Play
 } from 'lucide-react';
-
-export interface CaseStudy {
-  id: string;
-  client: string;
-  tagline: string;
-  category: 'Paid Advertising' | 'Organic Growth' | 'Content Engine' | 'Full-Funnel';
-  badge: string;
-  stats: { label: string; value: string }[];
-  overview: string;
-  deliverables: string[];
-  status: 'Featured Case' | 'Recent Win' | 'In Production';
-}
-
-const CASE_STUDIES: CaseStudy[] = [
-  {
-    id: 'dtc-growth',
-    client: 'Direct-to-Consumer Apparel',
-    tagline: 'Scaling customer acquisition with founder-led creative & high-ROAS paid social.',
-    category: 'Paid Advertising',
-    badge: 'PAID ADS // META & TIKTOK',
-    stats: [
-      { label: 'Return on Ad Spend', value: '3.8x' },
-      { label: 'Customer Acquisition Cost', value: '-38%' },
-      { label: 'Total Paid Reach', value: '4.2M+' }
-    ],
-    overview: 'Engineered a direct-response video advertising pipeline featuring raw, lifestyle-first storytelling and hook-testing variations that outperformed traditional studio ads.',
-    deliverables: ['18 Ad Creatives', 'Meta Ads Setup', 'Audience Retargeting', 'Scriptwriting'],
-    status: 'Featured Case'
-  },
-  {
-    id: 'lifestyle-organic',
-    client: 'Active & Lifestyle Brand',
-    tagline: 'Building a multi-million-view organic short-form engine across Reels & TikTok.',
-    category: 'Organic Growth',
-    badge: 'ORGANIC // REELS & SHORTS',
-    stats: [
-      { label: 'Organic Views in 90 Days', value: '6.4M+' },
-      { label: 'Follower Growth', value: '+42K' },
-      { label: 'Average Watch Time', value: '88%' }
-    ],
-    overview: 'Shifted content strategy from static product showcases to narrative-driven, high-retention micro-documentaries that tapped into cultural outdoor & athletic trends.',
-    deliverables: ['Content Strategy', 'Video Editing', 'Viral Hooks & Captions', 'Community Engagement'],
-    status: 'Recent Win'
-  },
-  {
-    id: 'omnichannel-scale',
-    client: 'Beverage & Consumer Goods',
-    tagline: 'Omnichannel product launch combining cinematic video and targeted paid distribution.',
-    category: 'Full-Funnel',
-    badge: 'FULL-FUNNEL // CAMPAIGN LAUNCH',
-    stats: [
-      { label: 'Launch Month Revenue', value: '+$180K' },
-      { label: 'Email Opt-in Rate', value: '14.2%' },
-      { label: 'Engagement Rate', value: '8.7%' }
-    ],
-    overview: 'Full-stack launch execution: from scripting and directing commercial spots to running top-of-funnel traffic into an exclusive pre-order waitlist funnel.',
-    deliverables: ['Hero Commercial', 'Paid Traffic Campaigns', 'Landing Page Creative', 'Influencer Briefs'],
-    status: 'Featured Case'
-  }
-];
 
 const SERVICES = [
   {
@@ -101,7 +32,7 @@ const SERVICES = [
       'Direct-response ad creative (UGC & commercial)',
       'Meta & TikTok Ads campaign management',
       'Multi-variant hook & CTA split-testing',
-      'ROAS optimization & weekly performance reporting'
+      'ROAS optimization & performance reporting'
     ]
   },
   {
@@ -142,12 +73,6 @@ const PROCESS_STEPS = [
 ];
 
 export default function WorkPage() {
-  const [activeCategory, setActiveCategory] = useState<string>('All');
-
-  const filteredCases = activeCategory === 'All'
-    ? CASE_STUDIES
-    : CASE_STUDIES.filter(c => c.category === activeCategory);
-
   return (
     <div className="min-h-screen bg-[#090a0d] text-white selection:bg-white selection:text-black">
       
@@ -187,33 +112,6 @@ export default function WorkPage() {
                 <Mail className="w-3.5 h-3.5" />
                 <span>DIRECT EMAIL</span>
               </a>
-            </div>
-          </div>
-
-          {/* High-Level Metric Ribbons */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-8 border-t border-white/5">
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">ORGANIC REACH</span>
-              <span className="text-2xl sm:text-3xl font-black text-white mt-1 block">15M+</span>
-              <span className="text-[11px] text-zinc-400 font-mono">Views across social</span>
-            </div>
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">PAID ROAS</span>
-              <span className="text-2xl sm:text-3xl font-black text-emerald-400 mt-1 block">3.5x - 5.2x</span>
-              <span className="text-[11px] text-zinc-400 font-mono">Target benchmark</span>
-            </div>
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">FORMAT FOCUS</span>
-              <span className="text-2xl sm:text-3xl font-black text-white mt-1 block">9:16</span>
-              <span className="text-[11px] text-zinc-400 font-mono">TikTok, Reels & Shorts</span>
-            </div>
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">AVAILABILITY</span>
-              <span className="text-2xl sm:text-3xl font-black text-white mt-1 block">Q4 2026</span>
-              <span className="text-[11px] text-amber-400 font-mono flex items-center gap-1.5 mt-0.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                Limited client spots
-              </span>
             </div>
           </div>
 
@@ -271,122 +169,41 @@ export default function WorkPage() {
         </div>
       </section>
 
-      {/* CASE STUDIES & RECENT WORK */}
+      {/* CASE STUDIES SECTION - COMING SOON */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 pb-20 border-t border-white/10 pt-16">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
-          <div>
-            <span className="text-xs uppercase tracking-[0.3em] text-zinc-400 font-mono">PORTFOLIO & RESULTS</span>
-            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white mt-1">
-              CASE STUDIES
-            </h2>
-          </div>
-
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
-            {['All', 'Paid Advertising', 'Organic Growth', 'Full-Funnel'].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`text-xs font-mono uppercase px-3.5 py-1.5 rounded-full border transition-all ${
-                  activeCategory === cat
-                    ? 'bg-white text-black border-white font-bold'
-                    : 'bg-white/5 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+        <div className="mb-10">
+          <span className="text-xs uppercase tracking-[0.3em] text-zinc-400 font-mono">PORTFOLIO</span>
+          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white mt-1">
+            CASE STUDIES
+          </h2>
         </div>
 
-        {/* Case Study Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {filteredCases.map((cs) => (
-            <div
-              key={cs.id}
-              className="rounded-2xl bg-[#111217] border border-white/10 hover:border-white/40 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl flex flex-col justify-between group"
+        {/* Coming Soon Card */}
+        <div className="p-12 sm:p-16 md:p-20 rounded-2xl bg-[#111217] border border-white/10 text-center flex flex-col items-center justify-center space-y-5 shadow-xl relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04)_0%,transparent_70%)] pointer-events-none" />
+
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+            PORTFOLIO ARCHIVE
+          </span>
+
+          <h3 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white">
+            COMING SOON
+          </h3>
+
+          <p className="text-xs sm:text-sm text-zinc-400 max-w-md leading-relaxed font-mono">
+            Client case studies, campaign breakdowns, and performance analytics currently being compiled.
+          </p>
+
+          <div className="pt-4">
+            <Link
+              href="/contact"
+              className="px-8 py-3.5 rounded-full bg-white text-black font-black text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all inline-flex items-center gap-2 shadow-xl"
             >
-              <div>
-                {/* Header Tag */}
-                <div className="p-5 border-b border-white/5 flex items-center justify-between bg-[#0d0e13]">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 bg-white/5 px-2.5 py-1 rounded-full border border-white/10">
-                    {cs.badge}
-                  </span>
-                  <span className="text-[10px] font-mono uppercase text-emerald-400 font-bold flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                    {cs.status}
-                  </span>
-                </div>
-
-                {/* Body Content */}
-                <div className="p-6 space-y-4">
-                  <div>
-                    <h3 className="text-lg md:text-xl font-black uppercase tracking-tight text-white group-hover:text-zinc-200 transition-colors">
-                      {cs.client}
-                    </h3>
-                    <p className="text-xs md:text-sm text-zinc-300 mt-2 leading-relaxed">
-                      {cs.tagline}
-                    </p>
-                  </div>
-
-                  <p className="text-xs text-zinc-400 leading-relaxed pt-2 border-t border-white/5">
-                    {cs.overview}
-                  </p>
-
-                  {/* Key Metrics */}
-                  <div className="grid grid-cols-3 gap-2 pt-2">
-                    {cs.stats.map((st, idx) => (
-                      <div key={idx} className="p-2.5 rounded-lg bg-black/40 border border-white/5 text-center">
-                        <span className="text-sm sm:text-base font-black text-white block">
-                          {st.value}
-                        </span>
-                        <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-tighter block leading-tight mt-0.5">
-                          {st.label}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Card Bottom Deliverables */}
-              <div className="p-6 pt-0">
-                <div className="pt-4 border-t border-white/5 flex flex-wrap gap-1.5">
-                  {cs.deliverables.map((item, dIdx) => (
-                    <span key={dIdx} className="text-[10px] font-mono bg-white/5 text-zinc-400 px-2 py-0.5 rounded border border-white/5">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-5">
-                  <Link
-                    href="/contact"
-                    className="w-full py-2.5 px-4 rounded-xl bg-white/5 hover:bg-white text-zinc-300 hover:text-black border border-white/10 hover:border-white text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 group-hover:bg-white group-hover:text-black"
-                  >
-                    <span>INQUIRE ABOUT SIMILAR RESULTS</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Notice for Custom Inquiries */}
-        <div className="mt-8 p-6 rounded-2xl bg-white/[0.02] border border-white/5 text-center flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-left">
-            <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest block">PORTFOLIO EXPANSION</span>
-            <p className="text-xs text-zinc-300 mt-1">
-              Currently compiling detailed video breakdowns, analytics dashboards, and before/after ROAS reports.
-            </p>
+              <span>INQUIRE ABOUT CLIENT WORK</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
-          <a
-            href="mailto:leeparsonsbusiness@gmail.com?subject=Request%20Full%20Brand%20Portfolio"
-            className="px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 hover:border-white text-xs font-bold uppercase tracking-wider transition-all text-white shrink-0"
-          >
-            REQUEST FULL DECK
-          </a>
         </div>
       </section>
 
