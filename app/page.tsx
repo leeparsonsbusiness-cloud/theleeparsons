@@ -702,6 +702,99 @@ export default function HomePage() {
           <TrustTheThumbCard />
         </div>
 
+        {/* BRAND WORK & GROWTH MARKETING TEASER */}
+        <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20 border-t border-white/10 pt-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-8 mb-10 gap-4">
+            <div>
+              <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">
+                PORTFOLIO // SERVICES
+              </span>
+              <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight mt-1 text-white">
+                BRAND WORK
+              </h3>
+            </div>
+            <Link
+              href="/work"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 hover:border-white text-xs font-bold uppercase tracking-wider transition-all self-start md:self-end hover:bg-white/5"
+            >
+              <span>VIEW FULL PORTFOLIO</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          {/* Intro description */}
+          <p className="text-sm md:text-base text-zinc-400 max-w-3xl leading-relaxed mb-8">
+            Beyond original films and apparel, I help ambitious companies scale customer acquisition through high-converting paid social ads, organic short-form engines, and cinematic creative direction.
+          </p>
+
+          {/* 3 Pillars Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-2xl bg-[#111217] border border-white/10 hover:border-white/30 transition-all duration-300 flex flex-col justify-between group">
+              <div>
+                <span className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase block mb-3">01 // ORGANIC</span>
+                <h4 className="text-lg font-black uppercase tracking-tight text-white group-hover:text-zinc-200 transition-colors">
+                  Short-Form Content Engine
+                </h4>
+                <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                  Viral-engineered TikToks, Reels, and Shorts designed to build authentic brand affinity and turn casual viewers into loyal buyers.
+                </p>
+              </div>
+              <div className="pt-4 mt-6 border-t border-white/5 text-[11px] font-mono text-zinc-400 flex items-center justify-between">
+                <span>REELS • TIKTOK • SHORTS</span>
+                <span className="text-white font-bold">15M+ VIEWS</span>
+              </div>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#111217] border border-white/10 hover:border-white/30 transition-all duration-300 flex flex-col justify-between group">
+              <div>
+                <span className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase block mb-3">02 // PERFORMANCE</span>
+                <h4 className="text-lg font-black uppercase tracking-tight text-white group-hover:text-zinc-200 transition-colors">
+                  Paid Ads & Acquisition
+                </h4>
+                <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                  Direct-response ad creative across Meta and TikTok with systematic hook testing to lower customer acquisition costs and drive profitable ROAS.
+                </p>
+              </div>
+              <div className="pt-4 mt-6 border-t border-white/5 text-[11px] font-mono text-zinc-400 flex items-center justify-between">
+                <span>META & TIKTOK ADS</span>
+                <span className="text-emerald-400 font-bold">3.5X+ ROAS</span>
+              </div>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[#111217] border border-white/10 hover:border-white/30 transition-all duration-300 flex flex-col justify-between group">
+              <div>
+                <span className="text-[10px] font-mono tracking-widest text-zinc-500 uppercase block mb-3">03 // BRANDING</span>
+                <h4 className="text-lg font-black uppercase tracking-tight text-white group-hover:text-zinc-200 transition-colors">
+                  Creative Direction
+                </h4>
+                <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                  Cinematic commercial production, lookbook photo shoots, and cohesive visual identities that position brands as category leaders.
+                </p>
+              </div>
+              <div className="pt-4 mt-6 border-t border-white/5 text-[11px] font-mono text-zinc-400 flex items-center justify-between">
+                <span>FULL PRODUCTION</span>
+                <span className="text-white font-bold">CINEMATIC</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Action Row */}
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-xl bg-white/[0.02] border border-white/5">
+            <span className="text-xs font-mono text-zinc-400">
+              ● SELECT CLIENT AVAILABILITY FOR Q4 2026
+            </span>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/work"
+                className="text-xs font-bold uppercase tracking-wider text-white hover:underline flex items-center gap-1.5"
+              >
+                <span>EXPLORE WORK & CASE STUDIES</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+
         {/* Get In Touch Box */}
         <div className="max-w-7xl mx-auto px-4 md:px-8 pb-24">
           <div className="p-8 md:p-12 rounded-2xl border border-white/15 bg-gradient-to-r from-[#12141c] to-[#0a0b10] flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">

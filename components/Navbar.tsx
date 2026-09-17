@@ -41,6 +41,7 @@ export default function Navbar() {
     { href: '/', label: 'Home' },
     { href: '/clothing', label: 'Clothing' },
     { href: '/films', label: 'Films' },
+    { href: '/work', label: 'Work' },
     { href: '/music', label: 'Music' },
     { href: '/contact', label: 'Contact' },
   ];
