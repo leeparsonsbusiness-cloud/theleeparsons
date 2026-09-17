@@ -1,37 +1,27 @@
 "use client";
 
+import { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 import IntroAnimation from '@/components/IntroAnimation';
 import CampaignVideo from '@/components/CampaignVideo';
-import { ArrowRight, Play, ShoppingBag, Film, ChevronDown, MapPin, Clock } from 'lucide-react';
-
-function useCountdown(targetDate: string) {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-  useEffect(() => {
-    const target = new Date(targetDate).getTime();
-    const tick = () => {
-      const now = Date.now();
-      const diff = Math.max(0, target - now);
-      setTimeLeft({
-        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((diff % (1000 * 60)) / 1000),
-      });
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, [targetDate]);
-
-  return timeLeft;
-}
+import TrustTheThumbCard from '@/components/TrustTheThumbCard';
+import { ArrowRight, ShoppingBag, Film } from 'lucide-react';
 
 export default function HomePage() {
-  const countdown = useCountdown('2026-10-01T00:00:00');
+  const filmsVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = filmsVideoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.play().catch(() => {
+      setTimeout(() => {
+        video.play().catch(() => {});
+      }, 100);
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#090a0d] text-white selection:bg-white selection:text-black">
@@ -45,7 +35,7 @@ export default function HomePage() {
       </div>
 
       {/* Hero Section: Campaign Video */}
-      <section className="relative min-h-[85vh] flex flex-col items-center justify-center text-center px-4 py-8 sm:py-12 overflow-hidden">
+      <section className="relative min-h-[80vh] flex flex-col items-center justify-center text-center px-4 py-8 sm:py-12 overflow-hidden">
         
         {/* Ambient Radial Spotlight */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.07)_0%,transparent_70%)] pointer-events-none" />
@@ -55,7 +45,7 @@ export default function HomePage() {
           
           <h1 className="sr-only">THE LEE PARSONS</h1>
 
-          {/* Featured Campaign Video */}
+          {/* Featured Campaign Video (Unchanged) */}
           <CampaignVideo />
 
           {/* Primary Action Buttons */}
@@ -78,74 +68,6 @@ export default function HomePage() {
           </div>
 
         </div>
-
-        {/* Scroll Indicator */}
-        <div className="pt-6 flex flex-col items-center gap-1 text-[10px] font-mono text-zinc-500 uppercase tracking-widest animate-bounce">
-          <span>SCROLL</span>
-          <ChevronDown className="w-3.5 h-3.5" />
-        </div>
-      </section>
-
-      {/* TRUST THE THUMB Teaser Section */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 border-t border-white/10">
-        <a
-          href="https://trustthethumb.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative w-full rounded-2xl overflow-hidden border border-white/10 hover:border-amber-400/60 transition-all duration-500 flex flex-col md:flex-row items-center justify-between gap-8 p-8 md:p-12 bg-gradient-to-br from-[#0f1008] via-[#12110a] to-[#090a0d] shadow-2xl block"
-        >
-          {/* Ambient glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,rgba(200,160,20,0.06)_0%,transparent_60%)] pointer-events-none" />
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-400/30 to-transparent" />
-
-          {/* Left: Text content */}
-          <div className="relative z-10 flex flex-col gap-4 max-w-xl">
-            <div className="flex items-center gap-3">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1 rounded-full">
-                INCOMING · OCT 1, 2026
-              </span>
-              <span className="flex items-center gap-1.5 text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
-                <MapPin className="w-3 h-3" /> LA → COLUMBUS, OH
-              </span>
-            </div>
-
-            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white group-hover:text-amber-50 transition-colors">
-              TRUST<br />THE THUMB
-            </h2>
-
-            <p className="text-sm text-zinc-400 leading-relaxed max-w-md">
-              Me and my brother Jake are hitchhiking across the country — no car, no plan, just our thumbs. Follow every ride, every stranger, every mile.
-            </p>
-
-            <span className="mt-2 inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-amber-400 group-hover:gap-3 transition-all">
-              FOLLOW THE JOURNEY <ArrowRight className="w-4 h-4" />
-            </span>
-          </div>
-
-          {/* Right: Countdown */}
-          <div className="relative z-10 flex flex-col items-center md:items-end gap-3">
-            <div className="flex items-center gap-1.5 text-[10px] font-mono text-zinc-500 uppercase tracking-widest mb-1">
-              <Clock className="w-3 h-3" /> LAUNCHES IN
-            </div>
-            <div className="grid grid-cols-4 gap-3 text-center">
-              {[
-                { value: countdown.days, label: 'DAYS' },
-                { value: countdown.hours, label: 'HRS' },
-                { value: countdown.minutes, label: 'MIN' },
-                { value: countdown.seconds, label: 'SEC' },
-              ].map(({ value, label }) => (
-                <div key={label} className="flex flex-col items-center gap-1">
-                  <div className="w-16 h-16 rounded-xl bg-white/5 border border-white/10 group-hover:border-amber-400/20 transition-colors flex items-center justify-center">
-                    <span className="text-2xl font-black text-white tabular-nums">
-                      {String(value).padStart(2, '0')}
-                    </span>
-                  </div>
-                  <span className="text-[9px] font-mono text-zinc-600 uppercase tracking-widest">{label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </a>
       </section>
 
       {/* Portal Section 1: CLOTHING DROP */}
@@ -235,8 +157,8 @@ export default function HomePage() {
       </section>
 
       {/* Portal Section 2: MY VIDEOS */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 py-20 border-t border-white/10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 py-20 border-t border-white/10 space-y-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white">
               MY VIDEOS
@@ -246,71 +168,54 @@ export default function HomePage() {
             href="/films"
             className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-zinc-300 hover:text-white transition-colors group"
           >
-            <span>EXPLORE ALL VIDEOS</span>
+            <span>EXPLORE VIDEOS</span>
             <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Video that autoplays from films page, no box outline, clicks to /films */}
+        <Link
+          href="/films"
+          className="group relative block w-full select-none cursor-pointer"
+        >
+          <div className="relative w-full flex items-center justify-center">
+            <video
+              ref={filmsVideoRef}
+              src="/videos/featured-reel.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              controls={false}
+              disablePictureInPicture
+              disableRemotePlayback
+              onPause={(e) => {
+                e.currentTarget.play().catch(() => {});
+              }}
+              onEnded={(e) => {
+                e.currentTarget.play().catch(() => {});
+              }}
+              className="w-auto h-auto max-h-[75vh] max-w-full object-contain mx-auto block group-hover:opacity-95 transition-opacity"
+            >
+              <source src="/videos/featured-reel.mp4" type="video/mp4" />
+            </video>
+          </div>
 
-          {/* Card 1: Featured Reel */}
-          <Link
-            href="/films"
-            className="group relative aspect-video w-full rounded-2xl overflow-hidden border border-white/15 bg-gradient-to-br from-[#181924] via-[#101117] to-black shadow-2xl flex flex-col justify-end p-8 transition-all duration-300 hover:border-white/40 block"
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_0%,transparent_70%)] pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-16 h-16 rounded-full bg-white/10 group-hover:bg-white backdrop-blur-md border border-white/20 flex items-center justify-center text-white group-hover:text-black transition-all duration-300 transform group-hover:scale-110 shadow-2xl">
-                <Play className="w-7 h-7 fill-current ml-1" />
-              </div>
+          {/* Bold EXPLORE VIDEOS button */}
+          <div className="mt-6 flex items-center justify-center">
+            <div className="px-8 py-4 rounded-full bg-white text-black font-black text-xs sm:text-sm uppercase tracking-widest hover:bg-zinc-200 transition-all flex items-center gap-2 shadow-2xl group-hover:scale-105">
+              <span>EXPLORE VIDEOS</span>
+              <ArrowRight className="w-4 h-4" />
             </div>
+          </div>
+        </Link>
 
-            <div className="relative z-10 space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 bg-white/10 px-3 py-1 rounded-full border border-white/15">
-                FEATURED VIDEO
-              </span>
-              <h3 className="text-2xl font-black uppercase tracking-tight text-white group-hover:text-zinc-200">
-                FEATURED REEL // 2026
-              </h3>
-              <p className="text-xs text-zinc-300">
-                Visual projects and creative video archives.
-              </p>
-            </div>
-          </Link>
-
-          {/* Card 2: Trust The Thumb */}
-          <a
-            href="https://trustthethumb.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative aspect-video w-full rounded-2xl overflow-hidden border border-white/10 hover:border-amber-400/50 bg-gradient-to-br from-[#0f1008] via-[#12110a] to-[#090a0d] shadow-2xl flex flex-col justify-end p-8 transition-all duration-300 block"
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(200,160,20,0.08)_0%,transparent_70%)] pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-amber-400/30 to-transparent" />
-
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-16 h-16 rounded-full bg-amber-400/10 group-hover:bg-amber-400 backdrop-blur-md border border-amber-400/30 flex items-center justify-center text-amber-400 group-hover:text-black transition-all duration-300 transform group-hover:scale-110 shadow-2xl">
-                <MapPin className="w-7 h-7" />
-              </div>
-            </div>
-
-            <div className="relative z-10 space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/30">
-                LIVE JOURNEY · OCT 1
-              </span>
-              <h3 className="text-2xl font-black uppercase tracking-tight text-white group-hover:text-amber-50">
-                TRUST THE THUMB
-              </h3>
-              <p className="text-xs text-zinc-300">
-                Hitchhiking LA → Columbus with my brother. Follow every mile in real time.
-              </p>
-            </div>
-          </a>
-
+        {/* Under the video: Box with information about trustthethumb.com and journey */}
+        <div className="pt-4">
+          <TrustTheThumbCard />
         </div>
+
       </section>
     </div>
   );
