@@ -114,6 +114,23 @@ const INFINITE_YOUTUBE_VIDEOS = [
   ...YOUTUBE_VIDEOS,
 ];
 
+const PASSION_PROJECTS: YouTubeWork[] = [
+  {
+    id: 'vh-1',
+    youtubeId: 'AiYkzRXaCPs',
+    title: 'WHY STOP NOW',
+    thumbnail: '/thumbnails/yt-AiYkzRXaCPs.jpg',
+    url: 'https://www.youtube.com/watch?v=AiYkzRXaCPs',
+  },
+  {
+    id: 'vh-2',
+    youtubeId: '4tt691ss1WI',
+    title: 'BATTING CAGES 06/12/25',
+    thumbnail: '/thumbnails/yt-4tt691ss1WI.jpg',
+    url: 'https://www.youtube.com/watch?v=4tt691ss1WI',
+  },
+];
+
 export default function HomePage() {
   // Modal State for Quick Buy
   const [modalOpen, setModalOpen] = useState(false);
@@ -618,41 +635,64 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* PASSION PROJECTS Section - 3 Blank Boxes To Be Filled Soon */}
+        {/* PASSION PROJECTS Section - Victory House Productions */}
         <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20 border-t border-white/10 pt-16">
-          <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+          <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight text-white mt-1">
                 PASSION PROJECTS
               </h3>
             </div>
-            <span className="text-xs font-mono text-zinc-500 uppercase tracking-widest self-start sm:self-auto">
-              3 UPCOMING RELEASES
-            </span>
+            <a
+              href="https://www.youtube.com/@VictoryHouseProductions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-mono text-zinc-400 hover:text-white flex items-center gap-1.5 transition-colors self-start sm:self-auto"
+            >
+              <span>VICTORY HOUSE PRODUCTIONS</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {[1, 2, 3].map((boxNum) => (
-              <div
-                key={boxNum}
-                className="relative aspect-video w-full rounded-2xl border-2 border-dashed border-white/15 bg-gradient-to-br from-[#111217] to-[#0a0b0e] flex flex-col items-center justify-center p-8 text-center transition-all duration-300 hover:border-white/30 group shadow-xl"
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {PASSION_PROJECTS.map((project) => (
+              <a
+                key={project.id}
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group cursor-pointer rounded-2xl bg-[#111217] border border-white/10 hover:border-white/40 transition-all duration-300 overflow-hidden shadow-xl hover:shadow-2xl flex flex-col"
               >
-                <div className="absolute inset-0 bg-white/[0.02] rounded-2xl group-hover:bg-white/[0.04] transition-colors pointer-events-none" />
-
-                <div className="relative z-10 flex flex-col items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:border-white/30 transition-all">
-                    <FilmIcon className="w-5 h-5" />
-                  </div>
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-400">
-                      PROJECT {boxNum}
-                    </span>
-                    <p className="text-sm font-black uppercase tracking-wide text-zinc-300">
-                      COMING SOON
-                    </p>
+                {/* Thumbnail Container */}
+                <div className="relative aspect-video w-full bg-black overflow-hidden border-b border-white/5">
+                  <Image
+                    src={project.thumbnail}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+                    <div className="w-12 h-12 rounded-full bg-black/60 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white group-hover:bg-red-600 group-hover:border-red-500 group-hover:scale-110 transition-all duration-300 shadow-xl">
+                      <Play className="w-5 h-5 fill-current ml-0.5" />
+                    </div>
                   </div>
                 </div>
-              </div>
+
+                {/* Info */}
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-4 bg-[#0d0e13]">
+                  <h4 className="font-black text-sm sm:text-base uppercase tracking-tight text-white group-hover:text-zinc-200 transition-colors line-clamp-2">
+                    {project.title}
+                  </h4>
+
+                  <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-zinc-300 group-hover:text-white">
+                    <span className="flex items-center gap-1.5">
+                      WATCH ON YOUTUBE
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </span>
+                    <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </a>
             ))}
           </div>
         </div>
