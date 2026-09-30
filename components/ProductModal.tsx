@@ -118,9 +118,9 @@ export default function ProductModal({
                 <span className="text-[10px] uppercase tracking-[0.25em] text-zinc-400 font-mono">SELECT SILHOUETTE</span>
                 <div className="grid grid-cols-2 gap-2.5 p-1 rounded-xl bg-white/5 border border-white/10">
                   <button
-                    onClick={() => setSelectedProductIndex(0)}
+                    onClick={() => setSelectedProductIndex(Math.floor(selectedProductIndex / 2) * 2)}
                     className={`py-2.5 rounded-lg font-black text-xs uppercase tracking-wider transition-all flex flex-col items-center gap-0.5 ${
-                      selectedProductIndex === 0
+                      selectedProductIndex % 2 === 0
                         ? 'bg-white text-black shadow-md'
                         : 'text-zinc-400 hover:text-white'
                     }`}
@@ -130,9 +130,9 @@ export default function ProductModal({
                   </button>
 
                   <button
-                    onClick={() => setSelectedProductIndex(1)}
+                    onClick={() => setSelectedProductIndex(Math.floor(selectedProductIndex / 2) * 2 + 1)}
                     className={`py-2.5 rounded-lg font-black text-xs uppercase tracking-wider transition-all flex flex-col items-center gap-0.5 ${
-                      selectedProductIndex === 1
+                      selectedProductIndex % 2 === 1
                         ? 'bg-white text-black shadow-md'
                         : 'text-zinc-400 hover:text-white'
                     }`}

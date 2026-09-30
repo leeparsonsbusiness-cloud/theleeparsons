@@ -39,7 +39,7 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/clothing', label: 'Clothing' },
+    { href: '/merch', label: 'Merch' },
     { href: '/films', label: 'Films' },
     { href: '/work', label: 'Work' },
     { href: '/music', label: 'Music' },
@@ -64,7 +64,7 @@ export default function Navbar() {
       {/* Center: Navigation Links */}
       <nav className="hidden md:flex items-center gap-8">
         {navLinks.map((link) => {
-          const isActive = pathname === link.href;
+          const isActive = pathname === link.href || (link.href === '/merch' && (pathname === '/clothing' || pathname.startsWith('/merch')));
           return (
             <Link
               key={link.href}

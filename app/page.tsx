@@ -22,34 +22,34 @@ import {
 
 const LOOKBOOK_ITEMS = [
   {
-    title: 'WASHED CHARCOAL HOODIE',
-    subtitle: '10.0 OZ FLEECE',
-    src: '/lifestyle/lookbook-hoodie-charcoal.jpg',
+    title: 'FUCK T SWIFT TEE',
+    subtitle: 'VINTAGE BLACK // 7.5 OZ HEAVYWEIGHT',
+    src: '/lifestyle/october/lookbook-1.jpg',
   },
   {
-    title: 'VINTAGE BONE HOODIE',
-    subtitle: '10.0 OZ FLEECE',
-    src: '/lifestyle/lookbook-hoodie-bone.jpg',
+    title: 'FUCK T SWIFT TEE',
+    subtitle: 'VINTAGE WHITE // 7.5 OZ HEAVYWEIGHT',
+    src: '/lifestyle/october/lookbook-2.jpg',
   },
   {
-    title: 'FADED FOREST HOODIE',
-    subtitle: '10.0 OZ FLEECE',
-    src: '/lifestyle/lookbook-hoodie-green.jpg',
+    title: 'FUCK T SWIFT HOODIE',
+    subtitle: 'VINTAGE WHITE // 10.0 OZ FLEECE',
+    src: '/lifestyle/october/lookbook-3.jpg',
   },
   {
-    title: 'WASHED CHARCOAL TEE',
-    subtitle: '7.5 OZ HEAVYWEIGHT',
-    src: '/lifestyle/lookbook-tee-charcoal.jpg',
+    title: 'FUCK T SWIFT HOODIE',
+    subtitle: 'VINTAGE BLACK // 10.0 OZ FLEECE',
+    src: '/lifestyle/october/lookbook-4.jpg',
   },
   {
-    title: 'VINTAGE BONE TEE',
-    subtitle: '7.5 OZ HEAVYWEIGHT',
-    src: '/lifestyle/lookbook-tee-bone.jpg',
+    title: 'OCTOBER DROP ARCHIVE',
+    subtitle: 'LIMITED QUANTITIES // HEAVYWEIGHT',
+    src: '/lifestyle/october/lookbook-5.jpg',
   },
   {
-    title: 'FADED FOREST TEE',
-    subtitle: '7.5 OZ HEAVYWEIGHT',
-    src: '/lifestyle/lookbook-tee-green.jpg',
+    title: 'LUXURY STREETWEAR CUT',
+    subtitle: 'BOXY OVERSIZED SILHOUETTE',
+    src: '/lifestyle/october/lookbook-6.jpg',
   },
 ];
 
@@ -306,11 +306,11 @@ export default function HomePage() {
           {/* Primary Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-2 w-full sm:w-auto">
             <a
-              href="#clothing"
+              href="#merch"
               className="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-black font-black text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 shadow-2xl"
             >
               <ShoppingBag className="w-4 h-4" />
-              <span>SHOP CLOTHING</span>
+              <span>SHOP MERCH</span>
             </a>
 
             <a
@@ -325,15 +325,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 1: SEPTEMBER DROP (Exact Clothing Page Layout with 6 Designs + Lookbook) */}
-      <section id="clothing" className="max-w-7xl mx-auto px-4 md:px-8 py-20 border-t border-white/10">
+      {/* SECTION 1: OCTOBER DROP */}
+      <section id="merch" className="max-w-7xl mx-auto px-4 md:px-8 py-20 border-t border-white/10 relative">
+        <span id="clothing" className="sr-only" />
         
         {/* Header / Intro */}
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-8 mb-12 gap-4">
           <div>
             <span className="text-xs uppercase font-mono tracking-[0.3em] text-zinc-400">FALL 2026 // COLLECTION</span>
             <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight mt-1 text-white">
-              SEPTEMBER DROP
+              OCTOBER DROP
             </h2>
           </div>
           <div className="flex items-center gap-3 text-xs font-mono text-zinc-400">
@@ -344,8 +345,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 6 Garment Showcase Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* Garment Showcase Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {DISPLAY_GRID_ITEMS.map((item) => (
             <div
               key={item.id}
@@ -416,7 +417,7 @@ export default function HomePage() {
           <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <span className="text-xs uppercase tracking-[0.3em] text-zinc-400 font-mono">ARCHIVE // GALLERY</span>
-              <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight mt-1">LOOKBOOK</h3>
+              <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tight mt-1">OCTOBER LOOKBOOK</h3>
             </div>
             
             {/* Scroll Navigation Buttons */}

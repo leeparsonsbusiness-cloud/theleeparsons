@@ -21,7 +21,7 @@ export default function Footer() {
         {/* Navigation Quick Links */}
         <div className="flex flex-wrap justify-center gap-6 text-xs uppercase font-bold tracking-[0.2em] text-zinc-300">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <Link href="/clothing" className="hover:text-white transition-colors">Clothing</Link>
+          <Link href="/merch" className="hover:text-white transition-colors">Merch</Link>
           <Link href="/films" className="hover:text-white transition-colors">Films</Link>
           <Link href="/work" className="hover:text-white transition-colors">Work</Link>
           <Link href="/music" className="hover:text-white transition-colors">Music</Link>

@@ -42,7 +42,7 @@ const LOOKBOOK_ITEMS = [
 // Repeat items to produce a truly seamless infinite loop
 const INFINITE_LOOKBOOK = [...LOOKBOOK_ITEMS, ...LOOKBOOK_ITEMS, ...LOOKBOOK_ITEMS];
 
-export default function ClothingPage() {
+export default function MerchPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);

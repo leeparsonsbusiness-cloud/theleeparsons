@@ -26,10 +26,10 @@ export async function POST(req: Request) {
         currency: 'usd',
         product_data: {
           name: `${item.name} (${item.colorwayName} - Size ${item.size})`,
-          description: 'SHOUTOUT TO THE GAYS FOR LEAVING MORE CHICKS FOR ME - Premium Streetwear',
+          description: `${item.name || 'OCTOBER DROP'} - Premium Heavyweight Streetwear`,
           images: item.image && item.image.startsWith('http') ? [item.image] : [`${origin}${item.image}`],
           metadata: {
-            productId: item.productId || 'shoutout-tee',
+            productId: item.productId || 'fuck-t-swift-tee',
             colorwayId: item.colorwayId,
             size: item.size,
             quantity: String(item.quantity || 1),
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
         orderSource: 'theleeparsons.com',
         promoApplied: isFreeShipping ? 'FREE_SHIPPING_2_PLUS' : 'NONE',
         orderItems: JSON.stringify(items.map((i: any) => ({
-          productId: i.productId || 'shoutout-tee',
+          productId: i.productId || 'fuck-t-swift-tee',
           colorwayId: i.colorwayId,
           size: i.size,
           quantity: i.quantity || 1,
