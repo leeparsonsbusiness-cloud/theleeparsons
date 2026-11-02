@@ -40,168 +40,6 @@ export interface DisplayItem {
 
 export const PRODUCTS: Product[] = [
   {
-    id: 'fuck-t-swift-tee',
-    name: 'FUCK T SWIFT TEE',
-    type: 'tee',
-    slug: 'fuck-t-swift-tee',
-    tagline: 'FUCK TAYLOR SWIFT',
-    price: 27.99,
-    priceCents: 2799,
-    description: '7.5 oz Heavyweight boxy streetwear cut with relaxed drop shoulders, thick 1-inch tight-knit ribbed crewneck collar, and high-density direct-to-garment statement print.',
-    details: [
-      '7.5 oz Heavyweight 100% Combed Ringspun Cotton',
-      'Thick 1" tight-knit ribbed crewneck collar',
-      'Boxy oversized streetwear silhouette with drop shoulders',
-      'High-density direct-to-garment statement print',
-      'Pre-shrunk to maintain shape and fit'
-    ],
-    sizes: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
-    colorways: [
-      {
-        id: 'vintage-black',
-        name: 'Vintage Black',
-        colorName: 'Washed Black',
-        hex: '#18181b',
-        mockup: '/mockups/october/fuck-t-swift-tee-black.jpg',
-        lifestyle: '/lifestyle/october/lookbook-1.jpg',
-        textColor: 'white',
-        stockLeft: 5
-      },
-      {
-        id: 'vintage-white',
-        name: 'Vintage White',
-        colorName: 'Unbleached Off-White',
-        hex: '#f4f4f5',
-        mockup: '/mockups/october/fuck-t-swift-tee-white.jpg',
-        lifestyle: '/lifestyle/october/lookbook-2.jpg',
-        textColor: 'black',
-        stockLeft: 8
-      }
-    ]
-  },
-  {
-    id: 'fuck-t-swift-hoodie',
-    name: 'FUCK T SWIFT HOODIE',
-    type: 'hoodie',
-    slug: 'fuck-t-swift-hoodie',
-    tagline: 'FUCK TAYLOR SWIFT',
-    price: 49.99,
-    priceCents: 4999,
-    description: '10 oz Heavyweight premium streetwear fleece pullover. Double-layer hood, thick ribbed cuffs and waistband, front kangaroo pocket, and oversized relaxed silhouette. High-density center chest print.',
-    details: [
-      '10.0 oz Heavyweight 80% Cotton / 20% Polyester Fleece',
-      'Double-layer 3-panel structured hood with round drawcords',
-      'Heavy 1x1 ribbing at cuffs and waistband',
-      'Spacious front kangaroo pouch pocket',
-      'Relaxed oversized streetwear drape',
-      'Fleece-lined interior for ultimate comfort'
-    ],
-    sizes: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
-    colorways: [
-      {
-        id: 'vintage-black',
-        name: 'Vintage Black',
-        colorName: 'Washed Black Pullover',
-        hex: '#18181b',
-        mockup: '/mockups/october/fuck-t-swift-hoodie-black.jpg',
-        lifestyle: '/lifestyle/october/lookbook-4.jpg',
-        textColor: 'white',
-        stockLeft: 3
-      },
-      {
-        id: 'vintage-white',
-        name: 'Vintage White',
-        colorName: 'Vintage White Pullover',
-        hex: '#f4f4f5',
-        mockup: '/mockups/october/fuck-t-swift-hoodie-white.jpg',
-        lifestyle: '/lifestyle/october/lookbook-3.jpg',
-        textColor: 'black',
-        stockLeft: 4
-      }
-    ]
-  },
-  {
-    id: 'id-fuck-t-swift-tee',
-    name: 'ID FUCK T SWIFT TEE',
-    type: 'tee',
-    slug: 'id-fuck-t-swift-tee',
-    tagline: "I'D FUCK TAYLOR SWIFT",
-    price: 27.99,
-    priceCents: 2799,
-    description: '7.5 oz Heavyweight boxy streetwear cut with relaxed drop shoulders, thick 1-inch tight-knit ribbed crewneck collar, and high-density direct-to-garment statement print.',
-    details: [
-      '7.5 oz Heavyweight 100% Combed Ringspun Cotton',
-      'Thick 1" tight-knit ribbed crewneck collar',
-      'Boxy oversized streetwear silhouette with drop shoulders',
-      'High-density direct-to-garment statement print',
-      'Pre-shrunk to maintain shape and fit'
-    ],
-    sizes: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
-    colorways: [
-      {
-        id: 'vintage-black',
-        name: 'Vintage Black',
-        colorName: 'Washed Black',
-        hex: '#18181b',
-        mockup: '/mockups/october/id-fuck-t-swift-tee-black.jpg',
-        lifestyle: '/lifestyle/october/lookbook-1.jpg',
-        textColor: 'white',
-        stockLeft: 6
-      },
-      {
-        id: 'vintage-white',
-        name: 'Vintage White',
-        colorName: 'Unbleached Off-White',
-        hex: '#f4f4f5',
-        mockup: '/mockups/october/id-fuck-t-swift-tee-white.jpg',
-        lifestyle: '/lifestyle/october/lookbook-2.jpg',
-        textColor: 'black',
-        stockLeft: 9
-      }
-    ]
-  },
-  {
-    id: 'id-fuck-t-swift-hoodie',
-    name: 'ID FUCK T SWIFT HOODIE',
-    type: 'hoodie',
-    slug: 'id-fuck-t-swift-hoodie',
-    tagline: "I'D FUCK TAYLOR SWIFT",
-    price: 49.99,
-    priceCents: 4999,
-    description: '10 oz Heavyweight premium streetwear fleece pullover. Double-layer hood, thick ribbed cuffs and waistband, front kangaroo pocket, and oversized relaxed silhouette. High-density center chest print.',
-    details: [
-      '10.0 oz Heavyweight 80% Cotton / 20% Polyester Fleece',
-      'Double-layer 3-panel structured hood with round drawcords',
-      'Heavy 1x1 ribbing at cuffs and waistband',
-      'Spacious front kangaroo pouch pocket',
-      'Relaxed oversized streetwear drape',
-      'Fleece-lined interior for ultimate comfort'
-    ],
-    sizes: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
-    colorways: [
-      {
-        id: 'vintage-black',
-        name: 'Vintage Black',
-        colorName: 'Washed Black Pullover',
-        hex: '#18181b',
-        mockup: '/mockups/october/id-fuck-t-swift-hoodie-black.jpg',
-        lifestyle: '/lifestyle/october/lookbook-4.jpg',
-        textColor: 'white',
-        stockLeft: 4
-      },
-      {
-        id: 'vintage-white',
-        name: 'Vintage White',
-        colorName: 'Vintage White Pullover',
-        hex: '#f4f4f5',
-        mockup: '/mockups/october/id-fuck-t-swift-hoodie-white.jpg',
-        lifestyle: '/lifestyle/october/lookbook-3.jpg',
-        textColor: 'black',
-        stockLeft: 5
-      }
-    ]
-  },
-  {
     id: 'shoutout-tee',
     name: 'SHOUTOUT HEAVYWEIGHT TEE',
     type: 'tee',
@@ -305,126 +143,11 @@ export const PRODUCTS: Product[] = [
   }
 ];
 
-export const OCTOBER_GRID_ITEMS: DisplayItem[] = [
-  {
-    id: 'tee-black',
-    productType: 'tee',
-    productIndex: 0,
-    colorwayIndex: 0,
-    title: 'FUCK T SWIFT TEE',
-    subtitle: 'Vintage Black',
-    price: 27.99,
-    mockup: '/mockups/october/fuck-t-swift-tee-black.jpg',
-    colorHex: '#18181b',
-    colorName: 'Vintage Black',
-    badge: '7.5 OZ HEAVYWEIGHT',
-    stockLeft: 5
-  },
-  {
-    id: 'tee-white',
-    productType: 'tee',
-    productIndex: 0,
-    colorwayIndex: 1,
-    title: 'FUCK T SWIFT TEE',
-    subtitle: 'Vintage White',
-    price: 27.99,
-    mockup: '/mockups/october/fuck-t-swift-tee-white.jpg',
-    colorHex: '#f4f4f5',
-    colorName: 'Vintage White',
-    badge: '7.5 OZ HEAVYWEIGHT',
-    stockLeft: 8
-  },
-  {
-    id: 'hoodie-black',
-    productType: 'hoodie',
-    productIndex: 1,
-    colorwayIndex: 0,
-    title: 'FUCK T SWIFT HOODIE',
-    subtitle: 'Vintage Black Pullover',
-    price: 49.99,
-    mockup: '/mockups/october/fuck-t-swift-hoodie-black.jpg',
-    colorHex: '#18181b',
-    colorName: 'Vintage Black',
-    badge: '10.0 OZ FLEECE',
-    stockLeft: 3
-  },
-  {
-    id: 'hoodie-white',
-    productType: 'hoodie',
-    productIndex: 1,
-    colorwayIndex: 1,
-    title: 'FUCK T SWIFT HOODIE',
-    subtitle: 'Vintage White Pullover',
-    price: 49.99,
-    mockup: '/mockups/october/fuck-t-swift-hoodie-white.jpg',
-    colorHex: '#f4f4f5',
-    colorName: 'Vintage White',
-    badge: '10.0 OZ FLEECE',
-    stockLeft: 4
-  },
-  {
-    id: 'id-tee-black',
-    productType: 'tee',
-    productIndex: 2,
-    colorwayIndex: 0,
-    title: 'ID FUCK T SWIFT TEE',
-    subtitle: 'Vintage Black',
-    price: 27.99,
-    mockup: '/mockups/october/id-fuck-t-swift-tee-black.jpg',
-    colorHex: '#18181b',
-    colorName: 'Vintage Black',
-    badge: '7.5 OZ HEAVYWEIGHT',
-    stockLeft: 6
-  },
-  {
-    id: 'id-tee-white',
-    productType: 'tee',
-    productIndex: 2,
-    colorwayIndex: 1,
-    title: 'ID FUCK T SWIFT TEE',
-    subtitle: 'Vintage White',
-    price: 27.99,
-    mockup: '/mockups/october/id-fuck-t-swift-tee-white.jpg',
-    colorHex: '#f4f4f5',
-    colorName: 'Vintage White',
-    badge: '7.5 OZ HEAVYWEIGHT',
-    stockLeft: 9
-  },
-  {
-    id: 'id-hoodie-black',
-    productType: 'hoodie',
-    productIndex: 3,
-    colorwayIndex: 0,
-    title: 'ID FUCK T SWIFT HOODIE',
-    subtitle: 'Vintage Black Pullover',
-    price: 49.99,
-    mockup: '/mockups/october/id-fuck-t-swift-hoodie-black.jpg',
-    colorHex: '#18181b',
-    colorName: 'Vintage Black',
-    badge: '10.0 OZ FLEECE',
-    stockLeft: 4
-  },
-  {
-    id: 'id-hoodie-white',
-    productType: 'hoodie',
-    productIndex: 3,
-    colorwayIndex: 1,
-    title: 'ID FUCK T SWIFT HOODIE',
-    subtitle: 'Vintage White Pullover',
-    price: 49.99,
-    mockup: '/mockups/october/id-fuck-t-swift-hoodie-white.jpg',
-    colorHex: '#f4f4f5',
-    colorName: 'Vintage White',
-    badge: '10.0 OZ FLEECE',
-    stockLeft: 5
-  }
-];
-
 export const SEPTEMBER_GRID_ITEMS: DisplayItem[] = [
   {
     id: 'sep-tee-charcoal',
     productType: 'tee',
-    productIndex: 4,
+    productIndex: 0,
     colorwayIndex: 0,
     title: 'SHOUTOUT TEE',
     subtitle: 'Washed Charcoal (Faded Black)',
@@ -438,7 +161,7 @@ export const SEPTEMBER_GRID_ITEMS: DisplayItem[] = [
   {
     id: 'sep-tee-bone',
     productType: 'tee',
-    productIndex: 4,
+    productIndex: 0,
     colorwayIndex: 1,
     title: 'SHOUTOUT TEE',
     subtitle: 'Vintage Bone (Unbleached Ecru)',
@@ -452,7 +175,7 @@ export const SEPTEMBER_GRID_ITEMS: DisplayItem[] = [
   {
     id: 'sep-tee-forest',
     productType: 'tee',
-    productIndex: 4,
+    productIndex: 0,
     colorwayIndex: 2,
     title: 'SHOUTOUT TEE',
     subtitle: 'Faded Forest (Garment-Dyed Pine)',
@@ -466,7 +189,7 @@ export const SEPTEMBER_GRID_ITEMS: DisplayItem[] = [
   {
     id: 'sep-hoodie-charcoal',
     productType: 'hoodie',
-    productIndex: 5,
+    productIndex: 1,
     colorwayIndex: 0,
     title: 'SHOUTOUT HOODIE',
     subtitle: 'Washed Charcoal Pullover',
@@ -480,7 +203,7 @@ export const SEPTEMBER_GRID_ITEMS: DisplayItem[] = [
   {
     id: 'sep-hoodie-bone',
     productType: 'hoodie',
-    productIndex: 5,
+    productIndex: 1,
     colorwayIndex: 1,
     title: 'SHOUTOUT HOODIE',
     subtitle: 'Vintage Bone Pullover',
@@ -494,7 +217,7 @@ export const SEPTEMBER_GRID_ITEMS: DisplayItem[] = [
   {
     id: 'sep-hoodie-forest',
     productType: 'hoodie',
-    productIndex: 5,
+    productIndex: 1,
     colorwayIndex: 2,
     title: 'SHOUTOUT HOODIE',
     subtitle: 'Faded Forest Pullover',
@@ -508,6 +231,5 @@ export const SEPTEMBER_GRID_ITEMS: DisplayItem[] = [
 ];
 
 export const DISPLAY_GRID_ITEMS: DisplayItem[] = [
-  ...OCTOBER_GRID_ITEMS,
   ...SEPTEMBER_GRID_ITEMS
 ];
